@@ -5,16 +5,11 @@
  */
 
 import React, { Component } from 'react';
+import { AppRegistry, StyleSheet } from 'react-native';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import App from './app/components/App';
 import reducer from './app/reducers';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
 
 const store = createStore(reducer);
 
