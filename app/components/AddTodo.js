@@ -7,7 +7,7 @@ export default class AddTodo extends Component {
       const { onAddClick } = this.props;
       return (
         <View>
-          <Button type="submit" title="hoge" onPress={()=> {
+          <Button type="submit" title="AddToDo" onPress={()=> {
             onAddClick(addTodo("HOGE0"));
           }} />
         </View>

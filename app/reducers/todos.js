@@ -1,18 +1,10 @@
-import Realm from 'realm';
-
-let realm = new Realm({
-  schema: [{name: 'Dog', properties: {name: 'string'}}]
-});
-realm.write(() => {
-  realm.create('Dog', {name: 'Rex'});
-});
 
 const todo = (state, action) => {
   switch (action.type) {
     case 'ADD_TODO':
       return {
         id: action.id,
-        text: realm.objects('Dog').length,
+        text: action.text,
         completed: false
       }
     case 'TOGGLE_TODO':
