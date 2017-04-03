@@ -36,5 +36,9 @@ export const writeMemo = (data) => {
 }
 
 export const getMemo = () => {
-  return memos;
+  let ret = realm.objects(MEMO);
+  if (ret == null) {
+    return []
+  }
+  return ret
 }

@@ -6,7 +6,7 @@ export default class MemoList extends Component {
     const { memos } = this.props;
     return (
       <View>
-        {memos.map(memo => <Text key={memo.id}>{memo.title}</Text>)}
+        {memos.map(memo => <Text key={memo.id}>{memo.id}{memo.title}</Text>)}
       </View>
     );
   }
