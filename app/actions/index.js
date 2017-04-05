@@ -11,8 +11,12 @@ export const toggleTodo = (id) => ({
 })
 
 export const ACTION_ADD_MEMO = 'ADD_MEMO'
+export const ACTION_UPDATE_MEMO = 'UPDATE_MEMO'
 
 export const actionAddMemo = (d) => ({
   type: ACTION_ADD_MEMO,
   data: d
+})
+export const actionUpdateMemo = () => ({
+  type: ACTION_UPDATE_MEMO
 })

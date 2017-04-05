@@ -19,9 +19,9 @@ class App extends Component {
         <TodoList
           todos={todos} />
         <View>
-          <MemoList memos={memos} />
+          <MemoList dataSource={memos} />
         </View>
-        <View style={styles.fab}>
+        <View style={styles.fab} pointerEvents="none">
           <AddMemo
             onAddClick={action => {
               dispatch(action)

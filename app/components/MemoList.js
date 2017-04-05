@@ -1,13 +1,24 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native';
+import { View, Text, ListView } from 'react-native';
 
 export default class MemoList extends Component {
   render() {
-    const { memos } = this.props;
+    const { dataSource } = this.props;
     return (
       <View>
-        {memos.map(memo => <Text key={memo.id}>{memo.id}{memo.title}</Text>)}
+      <ListView
+        dataSource={dataSource}
+        renderRow={this.renderRow} />
       </View>
     );
+  }
+
+  renderRow(rowData) {
+    return (
+      <View>
+        <Text>{rowData.title}</Text>
+        <Text>{rowData.content}</Text>
+      </View>
+    )
   }
 }
