@@ -21,7 +21,7 @@ class App extends Component {
         <View>
           <MemoList dataSource={memos} />
         </View>
-        <View style={styles.fab} pointerEvents="none">
+        <View style={styles.fab} pointerEvents="box-none">
           <AddMemo
             onAddClick={action => {
               dispatch(action)
