@@ -13,13 +13,21 @@ export const styles = StyleSheet.create({
     height: '100%',
     position: 'absolute',
     justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+  },
+  popup: {
+    width: '80%',
+    height: '80%',
+    position: 'absolute',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    backgroundColor: '#AAAAAAAA',
   },
   circleButton: {
     width: 64,
     height: 64,
     margin: 10,
-    borderRadius: 32
+    borderRadius: 32,
+    alignSelf: 'flex-end',
   },
   circleImage: {
     width: 64,
