@@ -11,46 +11,30 @@ import { styles } from '../styles'
 class App extends Component {
   render() {
     const { dispatch, todos, memos, showAddMemo } = this.props;
-    if (showAddMemo) {
-      return (
-        <View style={styles.container}>
-          <AddTodo
-            onAddClick={action => {
-              dispatch(action)
-            }} />
-          <TodoList todos={todos} />
-          <View>
-            <MemoList dataSource={memos} />
-          </View>
-          <View style={styles.fab} pointerEvents="box-none">
-            <AddMemo onAddClick={action => {
-              dispatch(action)
-            }} />
-          </View>
-          <AddMemoPopup onAddClick={action => {
+    return (
+      <View style={styles.container}>
+        <AddTodo
+          onAddClick={action => {
             dispatch(action)
-          }}/>
+          }} />
+        <TodoList todos={todos} />
+        <View>
+          <MemoList dataSource={memos} />
         </View>
-      );
-    } else {
-      return (
-        <View style={styles.container}>
-          <AddTodo
-            onAddClick={action => {
-              dispatch(action)
-            }} />
-          <TodoList todos={todos} />
-          <View>
-            <MemoList dataSource={memos} />
-          </View>
-          <View style={styles.fab} pointerEvents="box-none">
-            <AddMemo onAddClick={action => {
-              dispatch(action)
-            }} />
-          </View>
+        <View style={styles.fab} pointerEvents="box-none">
+          <AddMemo onAddClick={action => {
+            dispatch(action)
+          }} />
         </View>
-      );
-    }
+        {(() => {
+          if (showAddMemo)
+            return (
+              <AddMemoPopup onAddClick={action => {
+                dispatch(action)
+              }}/>);
+        })()}
+      </View>
+    );
   }
 }
 
