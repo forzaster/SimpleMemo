@@ -13,30 +13,32 @@ class App extends Component {
     const { dispatch, todos, memos, showAddMemo } = this.props;
     return (
       <View style={styles.container}>
-        <AddTodo
-          onAddClick={action => {
-            dispatch(action)
-          }} />
-        <TodoList todos={todos} />
         <View>
           <MemoList dataSource={memos} />
         </View>
-        <View style={styles.fab} pointerEvents="box-none">
+        <View style={styles.fabParent} pointerEvents="box-none">
           <AddMemo onAddClick={action => {
             dispatch(action)
           }} />
         </View>
-        {(() => {
-          if (showAddMemo)
-            return (
-              <AddMemoPopup onAddClick={action => {
-                dispatch(action)
-              }}/>);
-        })()}
+        <View style={styles.popupParent} pointerEvents="box-none">
+          {(() => {
+            if (showAddMemo)
+              return (
+                <AddMemoPopup onAddClick={action => {
+                  dispatch(action)
+                }}/>);
+          })()}
+        </View>
       </View>
     );
   }
 }
+//        <AddTodo
+//          onAddClick={action => {
+//            dispatch(action)
+//          }} />
+//        <TodoList todos={todos} />
 
 function mapStateToProps(state) {
   return {

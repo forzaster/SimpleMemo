@@ -8,15 +8,22 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#222222',
   },
-  fab: {
+  fabParent: {
     width: '100%',
     height: '100%',
     position: 'absolute',
     justifyContent: 'flex-end',
   },
+  popupParent: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
   popup: {
-    width: '80%',
-    height: '80%',
+    width: '90%',
+    height: '90%',
     position: 'absolute',
     justifyContent: 'center',
     alignSelf: 'center',

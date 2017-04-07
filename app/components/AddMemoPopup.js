@@ -1,22 +1,39 @@
 import React, { Component } from 'react'
-import { Button, TouchableHighlight, Image, View, Text } from 'react-native'
+import { Button, TouchableHighlight, Image, View, Text, Animated, StyleSheet } from 'react-native'
 import { actionAddMemo } from '../actions'
 import { styles } from '../styles'
 
 export default class AddMemoPopup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      style: StyleSheet.flatten([styles.popup,
+        {top: new Animated.Value(200)}])
+    };
+  }
+
+  componentDidMount() {
+    Animated.timing(                            // Animate over time
+      this.state.style.top,                      // The animated value to drive
+      {
+        toValue: 40,                             // Animate to opacity: 1, or fully opaque
+      }
+    ).start();                                  // Starts the animation
+  }
+
   render() {
       const { onAddClick } = this.props
       const d = new Date()
       return (
-        <View  style={styles.popup} >
+        <Animated.View style={this.state.style} >
           <Text>title</Text>
           <Button type="submit" title="AddMemo" onPress={()=> {
             onAddClick(actionAddMemo({
               title: "HOGE",
-              content: "HOGE content.",
+              content: "HOGE content." + d,
               date: d
             }))}}/>
-        </View>
+        </Animated.View>
       );
   }
 }
