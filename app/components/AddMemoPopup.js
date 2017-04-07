@@ -13,12 +13,12 @@ export default class AddMemoPopup extends Component {
   }
 
   componentDidMount() {
-    Animated.timing(                            // Animate over time
-      this.state.style.top,                      // The animated value to drive
+    Animated.timing(
+      this.state.style.top,
       {
-        toValue: 40,                             // Animate to opacity: 1, or fully opaque
+        toValue: 40,
       }
-    ).start();                                  // Starts the animation
+    ).start();
   }
 
   render() {

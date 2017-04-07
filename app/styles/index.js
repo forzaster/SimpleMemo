@@ -41,4 +41,6 @@ export const styles = StyleSheet.create({
     height: 64,
     borderRadius: 32
   },
+  item: {
+  },
 });
