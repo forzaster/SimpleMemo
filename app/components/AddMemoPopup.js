@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, TouchableHighlight, Image, View, Text, Animated, StyleSheet } from 'react-native'
 import { actionAddMemo } from '../actions'
 import { styles } from '../styles'
+import { strings } from '../resources/strings'
 
 export default class AddMemoPopup extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ export default class AddMemoPopup extends Component {
       return (
         <Animated.View style={this.state.style} >
           <Text>title</Text>
-          <Button type="submit" title="OK" onPress={()=> {
+          <Button type="submit" title={strings.OK} onPress={()=> {
             onAddClick(actionAddMemo({
               title: "HOGE",
               content: "HOGE content." + d,

@@ -7,10 +7,11 @@ import MemoList from '../components/MemoList'
 import AddTodo from '../components/AddTodo'
 import TodoList from '../components/TodoList'
 import { styles } from '../styles'
+import { strings } from '../resources/strings'
 
 class MainScreen extends Component {
   static navigationOptions = {
-    title: 'Home',
+    title: strings.Home,
     header: ({ state, setParam }) => ({
       style: styles.navigationBar,
       right: (
@@ -52,11 +53,6 @@ class MainScreen extends Component {
     );
   }
 }
-//        <AddTodo
-//          onAddClick={action => {
-//            dispatch(action)
-//          }} />
-//        <TodoList todos={todos} />
 
 function mapStateToProps(state) {
   return {
