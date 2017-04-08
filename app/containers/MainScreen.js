@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import AddMemoFAB from '../components/AddMemoFAB'
 import AddMemoPopup from '../components/AddMemoPopup'
 import MemoList from '../components/MemoList'
-import AddTodo from '../components/AddTodo'
-import TodoList from '../components/TodoList'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
 
