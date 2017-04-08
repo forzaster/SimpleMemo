@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
-import AddMemo from '../components/AddMemo'
+import AddMemoFAB from '../components/AddMemoFAB'
 import AddMemoPopup from '../components/AddMemoPopup'
 import MemoList from '../components/MemoList'
 import AddTodo from '../components/AddTodo'
@@ -21,7 +21,7 @@ class MainScreen extends Component {
           <MemoList dataSource={memos} />
         </View>
         <View style={styles.fabParent} pointerEvents="box-none">
-          <AddMemo onAddClick={action => {
+          <AddMemoFAB onAddClick={action => {
             dispatch(action)
           }} />
         </View>

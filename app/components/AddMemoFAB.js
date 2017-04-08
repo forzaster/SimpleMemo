@@ -3,7 +3,7 @@ import { Button, TouchableHighlight, Image } from 'react-native'
 import { actionShowAddMemo } from '../actions'
 import { styles } from '../styles'
 
-export default class AddMemo extends Component {
+export default class AddMemoFAB extends Component {
   render() {
       const { onAddClick } = this.props
       const d = new Date()
@@ -13,7 +13,10 @@ export default class AddMemo extends Component {
           underlayColor="#AAAAAAAA"
           onPress={()=> {
             onAddClick(actionShowAddMemo())}}>
-          <Image style={styles.circleImage} resizeMode={Image.resizeMode.stretch} source={require('./AddMemo.png')} />
+          <Image
+            style={styles.circleImage}
+            resizeMode={Image.resizeMode.stretch}
+            source={require('../resources/AddMemoFAB.png')} />
         </TouchableHighlight>
     );
   }
