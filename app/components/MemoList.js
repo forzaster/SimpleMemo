@@ -11,11 +11,9 @@ export default class MemoList extends Component {
   render() {
     const { dataSource } = this.props;
     return (
-      <View>
       <ListView
         dataSource={dataSource}
         renderRow={this.renderRow} />
-      </View>
     );
   }
 
