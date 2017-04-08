@@ -27,19 +27,22 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
     alignSelf: 'center',
+    borderRadius: 8,
+    padding: 20,
     backgroundColor: '#AAAAAAAA',
   },
   circleButton: {
-    width: 64,
-    height: 64,
+    width: 48,
+    height: 48,
     margin: 10,
-    borderRadius: 32,
+    borderRadius: 24,
     alignSelf: 'flex-end',
   },
   circleImage: {
-    width: 64,
-    height: 64,
-    borderRadius: 32
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#FF7043'
   },
   item: {
   },

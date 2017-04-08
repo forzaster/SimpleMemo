@@ -16,7 +16,7 @@ export default class AddMemoFAB extends Component {
           <Image
             style={styles.circleImage}
             resizeMode={Image.resizeMode.stretch}
-            source={require('../resources/AddMemoFAB.png')} />
+            source={require('../resources/ic_add_3x.png')} />
         </TouchableHighlight>
     );
   }

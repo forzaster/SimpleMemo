@@ -16,7 +16,7 @@ export default class AddMemoPopup extends Component {
     Animated.timing(
       this.state.style.top,
       {
-        toValue: 40,
+        toValue: 20,
         duration: 300,
       }
     ).start();
@@ -28,7 +28,7 @@ export default class AddMemoPopup extends Component {
       return (
         <Animated.View style={this.state.style} >
           <Text>title</Text>
-          <Button type="submit" title="AddMemo" onPress={()=> {
+          <Button type="submit" title="OK" onPress={()=> {
             onAddClick(actionAddMemo({
               title: "HOGE",
               content: "HOGE content." + d,
