@@ -32,18 +32,30 @@ export const styles = StyleSheet.create({
     backgroundColor: '#AAAAAAAA',
   },
   circleButton: {
-    width: 48,
-    height: 48,
+    width: 40,
+    height: 40,
     margin: 10,
-    borderRadius: 24,
+    borderRadius: 21,
     alignSelf: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FF7043'
   },
   circleImage: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: '#FF7043'
+    width: 32,
+    height: 32,
+    borderRadius: 16,
   },
   item: {
   },
+  navigationBar: {
+    backgroundColor: '#FF7043'
+  },
+  navigationButton: {
+    flex: 1,
+    aspectRatio: 1,
+    padding: 8,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 });

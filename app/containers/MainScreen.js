@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, TouchableHighlight, Image } from 'react-native'
 import { connect } from 'react-redux'
 import AddMemoFAB from '../components/AddMemoFAB'
 import AddMemoPopup from '../components/AddMemoPopup'
@@ -11,6 +11,20 @@ import { styles } from '../styles'
 class MainScreen extends Component {
   static navigationOptions = {
     title: 'Home',
+    header: ({ state, setParam }) => ({
+      style: styles.navigationBar,
+      right: (
+        <TouchableHighlight
+          style={styles.navigationButton}
+          underlayColor="#99999999"
+          onPress={()=> {}}>
+          <Image
+            style={{flex: 1}}
+            resizeMode={Image.resizeMode.contain}
+            source={require('../resources/ic_settings_3x.png')} />
+        </TouchableHighlight>
+      ),
+    }),
   };
 
   render() {
