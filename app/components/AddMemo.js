@@ -8,8 +8,11 @@ export default class AddMemo extends Component {
       const { onAddClick } = this.props
       const d = new Date()
       return (
-        <TouchableHighlight style={styles.circleButton} onPress={()=> {
-          onAddClick(actionShowAddMemo())}}>
+        <TouchableHighlight
+          style={styles.circleButton}
+          underlayColor="#AAAAAAAA"
+          onPress={()=> {
+            onAddClick(actionShowAddMemo())}}>
           <Image style={styles.circleImage} resizeMode={Image.resizeMode.stretch} source={require('./AddMemo.png')} />
         </TouchableHighlight>
     );
