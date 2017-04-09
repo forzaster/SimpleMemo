@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 8,
     padding: 20,
-    backgroundColor: '#AAAAAAAA',
+    backgroundColor: '#BBAAAAAA',
   },
   circleButton: {
     width: 40,

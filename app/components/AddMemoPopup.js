@@ -18,7 +18,7 @@ export default class AddMemoPopup extends Component {
       this.state.style.top,
       {
         toValue: 20,
-        duration: 300,
+        duration: 100,
       }
     ).start();
   }

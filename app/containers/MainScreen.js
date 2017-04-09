@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableHighlight, Image } from 'react-native'
 import { connect } from 'react-redux'
+import { BlurView } from 'react-native-blur'
 import AddMemoFAB from '../components/AddMemoFAB'
 import AddMemoPopup from '../components/AddMemoPopup'
 import MemoList from '../components/MemoList'
@@ -38,15 +39,19 @@ class MainScreen extends Component {
             dispatch(action)
           }} />
         </View>
-        <View style={styles.popupParent} pointerEvents="box-none">
           {(() => {
-            if (showAddMemo)
+            if (showAddMemo) {
               return (
-                <AddMemoPopup onAddClick={action => {
-                  dispatch(action)
-                }}/>);
+                <BlurView blurType="light" blurAmount={5} style={styles.popupParent}>
+                  <View style={styles.popupParent} pointerEvents="box-none">
+                    <AddMemoPopup onAddClick={action => {
+                      dispatch(action)
+                    }}/>
+                  </View>
+                </BlurView>
+              );
+            }
           })()}
-        </View>
       </View>
     );
   }
