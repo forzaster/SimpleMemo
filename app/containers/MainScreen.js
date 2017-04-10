@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, Image } from 'react-native'
+import { View, Text, TouchableHighlight, Image, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { BlurView } from 'react-native-blur'
 import AddMemoFAB from '../components/AddMemoFAB'
@@ -19,7 +19,7 @@ class MainScreen extends Component {
           style={styles.navigationButton}
           underlayColor="#99999999"
           onPress={()=> {
-            setParams({toSetting: true})
+            setParams({toSetting: true, setParams: setParams})
           }}>
           <Image
             style={{flex: 1}}
@@ -33,8 +33,11 @@ class MainScreen extends Component {
   componentWillReceiveProps(nextProps) {
     const { dispatch } = nextProps
     if (nextProps.navigation.state.params != null) {
-      const { navigate } = nextProps.navigation
-      dispatch(actionGoTo('SettingScreen', navigate))
+      if (nextProps.navigation.state.params.toSetting == true) {
+        const { navigate } = nextProps.navigation
+        dispatch(actionGoTo('SettingScreen', navigate))
+        nextProps.navigation.state.params.toSetting = false
+      }
     }
   }
 
@@ -53,8 +56,9 @@ class MainScreen extends Component {
         </View>
           {(() => {
             if (showAddMemo) {
-              return (
-                <BlurView blurType="light" blurAmount={5} style={styles.popupParent}>
+              if (Platform.OS == 'android') {
+                // workaround for crash due to BlurView when android
+                return (
                   <View style={styles.popupParent} pointerEvents="box-none">
                     <AddMemoPopup
                       onAddClick={action => {
@@ -64,8 +68,22 @@ class MainScreen extends Component {
                         dispatch(action)
                       }}/>
                   </View>
-                </BlurView>
-              );
+                );
+              } else {
+                return (
+                  <BlurView blurType="light" blurAmount={5} style={styles.popupParent}>
+                    <View style={styles.popupParent} pointerEvents="box-none">
+                      <AddMemoPopup
+                        onAddClick={action => {
+                          dispatch(action)
+                        }}
+                        onCancelClick={action => {
+                          dispatch(action)
+                        }}/>
+                    </View>
+                  </BlurView>
+                );
+              }
             }
           })()}
       </View>

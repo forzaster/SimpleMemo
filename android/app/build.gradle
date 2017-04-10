@@ -101,6 +101,8 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        renderscriptTargetApi 18
+        renderscriptSupportModeEnabled true
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

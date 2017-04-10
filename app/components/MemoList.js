@@ -13,6 +13,7 @@ export default class MemoList extends Component {
     const { dataSource } = this.props;
     return (
       <ListView
+        enableEmptySections={true}
         dataSource={dataSource}
         renderRow={this.renderRow} />
     );
