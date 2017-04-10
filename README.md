@@ -9,5 +9,7 @@ This application uses the following libraries.
 * react-native-localization for localization
 
 ## Build & Run
+```
 npm install
 react-native run-ios or react-native run-android
+```
