@@ -7,17 +7,20 @@ import AddMemoPopup from '../components/AddMemoPopup'
 import MemoList from '../components/MemoList'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
+import { actionGoTo } from '../actions'
 
 class MainScreen extends Component {
   static navigationOptions = {
     title: strings.Home,
-    header: ({ state, setParam }) => ({
+    header: ({ state, setParams }) => ({
       style: styles.navigationBar,
       right: (
         <TouchableHighlight
           style={styles.navigationButton}
           underlayColor="#99999999"
-          onPress={()=> {}}>
+          onPress={()=> {
+            setParams({toSetting: true})
+          }}>
           <Image
             style={{flex: 1}}
             resizeMode={Image.resizeMode.contain}
@@ -27,8 +30,17 @@ class MainScreen extends Component {
     }),
   };
 
+  componentWillReceiveProps(nextProps) {
+    const { dispatch } = nextProps
+    if (nextProps.navigation.state.params != null) {
+      const { navigate } = nextProps.navigation
+      dispatch(actionGoTo('SettingScreen', navigate))
+    }
+  }
+
   render() {
-    const { dispatch, todos, memos, showAddMemo } = this.props;
+    const { dispatch, todos, memos, showAddMemo } = this.props
+
     return (
       <View style={styles.container}>
         <View>
@@ -44,9 +56,13 @@ class MainScreen extends Component {
               return (
                 <BlurView blurType="light" blurAmount={5} style={styles.popupParent}>
                   <View style={styles.popupParent} pointerEvents="box-none">
-                    <AddMemoPopup onAddClick={action => {
-                      dispatch(action)
-                    }}/>
+                    <AddMemoPopup
+                      onAddClick={action => {
+                        dispatch(action)
+                      }}
+                      onCancelClick={action => {
+                        dispatch(action)
+                      }}/>
                   </View>
                 </BlurView>
               );

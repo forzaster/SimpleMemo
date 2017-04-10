@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
+import screen from './screen'
 import memos from './memos'
 
 const todoApp = combineReducers({
-  memos
+  screen,
+  memos,
 })
 
 export default todoApp
