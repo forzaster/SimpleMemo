@@ -26,12 +26,18 @@ let memos = realm.objects(MEMO)
 export const writeMemo = (data) => {
   memo_id++
   realm.write(() => {
-    realm.create(MEMO, Object.assign({}, data.data, {id: memo_id}));
+    realm.create(MEMO, Object.assign({}, data.data, {id: memo_id}))
+  });
+}
+
+export const updateMemo = (data) => {
+  realm.write(() => {
+    realm.create(MEMO, data.data, true)
   });
 }
 
 export const getMemo = () => {
-  let ret = realm.objects(MEMO);
+  let ret = realm.objects(MEMO)
   if (ret == null) {
     return []
   }

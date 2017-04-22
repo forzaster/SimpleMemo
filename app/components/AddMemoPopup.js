@@ -9,11 +9,20 @@ import OKCancelButtons from './OKCancelButtons'
 export default class AddMemoPopup extends Component {
   constructor(props) {
     super(props);
+    var title = ""
+    var content = ""
+    var id = undefined
+    if (props.memoData) {
+      title = props.memoData.title
+      content = props.memoData.content
+      id = props.memoData.id
+    }
     this.state = {
       style: StyleSheet.flatten([styles.popup,
         {top: new Animated.Value(200)}]),
-      title: '',
-      content: '',
+      title: title,
+      content: content,
+      id: id,
       height: 0
     };
   }
@@ -52,6 +61,7 @@ export default class AddMemoPopup extends Component {
               onAddClick(actionAddMemo({
                 title: this.state.title,
                 content: this.state.content,
+                id: this.state.id,
                 date: d
               }))
             }}

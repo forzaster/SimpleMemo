@@ -10,12 +10,13 @@ export default class ListItem extends Component {
   }
 
   render() {
-    const {rowData, fadeAnim} = this.props;
+    const {rowData, fadeAnim, onItemClick} = this.props;
     return (
       <TouchableHighlight
         style={styles.item}
         underlayColor="#AAAAAAAA"
-        onPress={()=> {
+        onPress={() => {
+          onItemClick(rowData)
         }}>
       <Animated.View style={{opacity: fadeAnim}}>
         <View>

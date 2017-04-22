@@ -42,12 +42,13 @@ class MainScreen extends Component {
   }
 
   render() {
-    const { dispatch, todos, memos, showAddMemo } = this.props
-
+    const { dispatch, todos, memos, showAddMemo, memoData } = this.props
     return (
       <View style={styles.container}>
         <View>
-          <MemoList dataSource={memos} />
+          <MemoList dataSource={memos} onItemClick={action => {
+            dispatch(action)
+          }}/>
         </View>
         <View style={styles.fabParent} pointerEvents="box-none">
           <AddMemoFAB onAddClick={action => {
@@ -66,7 +67,8 @@ class MainScreen extends Component {
                       }}
                       onCancelClick={action => {
                         dispatch(action)
-                      }}/>
+                      }}
+                      memoData={memoData}/>
                   </View>
                 );
               } else {
@@ -79,7 +81,8 @@ class MainScreen extends Component {
                         }}
                         onCancelClick={action => {
                           dispatch(action)
-                        }}/>
+                        }}
+                        memoData={memoData}/>
                     </View>
                   </BlurView>
                 );
@@ -95,7 +98,8 @@ function mapStateToProps(state) {
   return {
     todos: state.todos,
     memos: state.memos.memos,
-    showAddMemo: state.memos.showAddMemo
+    showAddMemo: state.memos.showAddMemo,
+    memoData: state.memos.memoData
   }
 }
 

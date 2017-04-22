@@ -1,5 +1,5 @@
 import { ListView } from 'react-native'
-import { writeMemo, getMemo } from './model'
+import { writeMemo, getMemo, updateMemo } from './model'
 import { ACTION_SHOW_ADD_MEMO, ACTION_CANCEL_ADD_MEMO, ACTION_ADD_MEMO, ACTION_UPDATE_MEMO } from '../actions'
 
 let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -9,7 +9,8 @@ const memos = (state = {memos:dataSource.cloneWithRows(getMemo())}, action) => {
     case ACTION_SHOW_ADD_MEMO:
       return Object.assign({}, state, {
         memos: dataSource.cloneWithRows(getMemo()),
-        showAddMemo: true
+        showAddMemo: true,
+        memoData: action.data
       })
     case ACTION_CANCEL_ADD_MEMO:
       return Object.assign({}, state, {
@@ -17,7 +18,11 @@ const memos = (state = {memos:dataSource.cloneWithRows(getMemo())}, action) => {
         showAddMemo: false
       })
     case ACTION_ADD_MEMO:
-      writeMemo(action);
+      if (action.data.id) {
+        updateMemo(action)
+      } else {
+        writeMemo(action);
+      }
       return Object.assign({}, state, {
         memos: dataSource.cloneWithRows(getMemo()),
         showAddMemo: false
