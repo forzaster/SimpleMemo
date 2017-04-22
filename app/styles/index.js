@@ -60,8 +60,14 @@ export const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: '#FFFFFF',
-    marginTop: 4,
-    marginBottom: 4,
+    marginTop: 8,
+  },
+  itemTitleTextSingleLine: {
+    fontSize: 16,
+    paddingTop: 16,
+    paddingBottom: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
   },
   itemTitleText: {
     fontSize: 16,
