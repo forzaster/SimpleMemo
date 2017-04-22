@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#AA000000',
   },
   fullscreen: {
     flex: 1,
@@ -47,10 +48,6 @@ export const styles = StyleSheet.create({
     height: 32,
     borderRadius: 16,
   },
-  item: {
-    padding: 8,
-    borderWidth: 0.5,
-  },
   navigationBar: {
     backgroundColor: '#4FC2F7'
   },
@@ -61,12 +58,25 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  item: {
+    backgroundColor: '#FFFFFF',
+    marginTop: 4,
+    marginBottom: 4,
+  },
   itemTitleText: {
-    fontSize: 14,
-    padding: 4,
+    fontSize: 16,
+    paddingTop: 16,
+    paddingBottom: 4,
+    paddingLeft: 16,
+    paddingRight: 16,
   },
   itemContentText: {
-    fontSize: 12,
-    padding: 4,
+    fontSize: 13,
+    color: "#000000",
+    opacity: 0.54,
+    paddingTop: 4,
+    paddingBottom: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
   }
 });

@@ -11,17 +11,13 @@ export default class ListItem extends Component {
 
   render() {
     const {rowData, fadeAnim} = this.props;
-    var _style = styles.item
-    if (fadeAnim != null) {
-      _style = StyleSheet.flatten([styles.item, {opacity: fadeAnim}])
-    }
     return (
       <TouchableHighlight
-        style={{margin: 8}}
+        style={styles.item}
         underlayColor="#AAAAAAAA"
         onPress={()=> {
         }}>
-      <Animated.View style={_style}>
+      <Animated.View style={{opacity: fadeAnim}}>
         <View>
           <Text style={styles.itemTitleText} ellipSizeMode='tail' numberOfLines={1}>{rowData.title}</Text>
           <Text style={styles.itemContentText} >{rowData.content}</Text>
