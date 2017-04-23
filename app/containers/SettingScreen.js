@@ -5,8 +5,8 @@ import { styles } from '../styles'
 import { strings } from '../resources/strings'
 
 let listItems = [
-  {title: "License"},
-  {title: "App Version"}
+  {title: "License", content: undefined},
+  {title: "App Version", content: "0.0.1"}
 ]
 
 class SettingScreen extends Component {
@@ -38,11 +38,20 @@ class SettingScreen extends Component {
   }
 
   renderRow(rowData) {
-    return (
-      <View style={styles.item}>
-        <Text style={styles.itemTitleTextSingleLine}>{rowData.title}</Text>
-      </View>
-    )
+    if (rowData.content != undefined) {
+      return (
+        <View style={styles.settingItem}>
+          <Text style={styles.settingItem1stText}>{rowData.title}</Text>
+          <Text style={styles.settingItem2ndText}>{rowData.content}</Text>
+        </View>
+      )
+    } else {
+      return (
+        <View style={styles.settingItem}>
+          <Text style={styles.settingItemSingleText}>{rowData.title}</Text>
+        </View>
+      )
+    }
   }
 }
 

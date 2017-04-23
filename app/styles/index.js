@@ -77,12 +77,35 @@ export const styles = StyleSheet.create({
     paddingRight: 16,
   },
   itemContentText: {
-    fontSize: 13,
+    fontSize: 14,
     color: "#000000",
     opacity: 0.54,
     paddingTop: 4,
     paddingBottom: 16,
     paddingLeft: 16,
     paddingRight: 16,
+  },
+  settingItem: {
+    borderBottomWidth: 0.2,
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
+  settingItemSingleText: {
+    fontSize: 16,
+    color: "#000000",
+    paddingTop: 8,
+    paddingBottom: 8,
+  },
+  settingItem1stText: {
+    fontSize: 16,
+    color: "#000000",
+    paddingBottom: 2,
+  },
+  settingItem2ndText: {
+    fontSize: 14,
+    color: "#000000",
+    opacity: 0.54,
   }
 });
