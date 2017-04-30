@@ -23,15 +23,16 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   popup: {
-    width: '90%',
-    height: '90%',
+    width: '95%',
+    height: '95%',
     position: 'absolute',
     alignSelf: 'center',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     borderRadius: 8,
-    padding: 20,
+    padding: 8,
     backgroundColor: '#BBAAAAAA',
+    flex: 1
   },
   circleButton: {
     width: 40,

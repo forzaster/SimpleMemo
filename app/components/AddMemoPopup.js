@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, TouchableHighlight, Image, View, Text, TextInput, Animated, StyleSheet } from 'react-native'
+import { Button, TouchableHighlight, Image, View, Text, TextInput, Animated, ScrollView, StyleSheet } from 'react-native'
 import { actionAddMemo, actionCancelAddMemo } from '../actions'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
@@ -45,15 +45,16 @@ export default class AddMemoPopup extends Component {
           <TextInput
             placeholder='title'
             keyboardType='default'
-            style={{flex: 1, height: 32, borderColor: 'gray', borderWidth: 1}}
+            style={{flex: 1, paddingLeft: 8, paddingRight: 8, fontSize: 16, height: 16, borderColor: 'gray', borderWidth: 1}}
             onChangeText={(text) => this.setState({title: text})}
             value={this.state.title} />
           <TextInput
             placeholder='content'
             keyboardType='default'
-            multilines={true}
+            multiline={true}
             numberOfLines={4}
-            style={{flex: 10, borderColor: 'gray', borderWidth: 1}}
+            editable={true}
+            style={{flex: 10, padding: 8, fontSize: 14, borderColor: 'gray', borderWidth: 1}}
             onChangeText={(text) => this.setState({content: text})}
             value={this.state.content} />
           <OKCancelButtons
