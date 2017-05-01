@@ -42,19 +42,23 @@ export default class AddMemoPopup extends Component {
       const d = new Date()
       return (
         <Animated.View style={this.state.style} >
-          <TextInput
-            placeholder='title'
-            keyboardType='default'
-            style={{flex: 1, paddingLeft: 8, paddingRight: 8, fontSize: 16, height: 16, borderColor: 'gray', borderWidth: 1}}
-            onChangeText={(text) => this.setState({title: text})}
-            value={this.state.title} />
+          <View style={{flexGrow: 1, height: 48, flexDirection: 'row'}}>
+            <Image style={{flexGrow: 1, width: 64, height: 64}} source={require('../resources/ic_add_3x.png')}/>
+            <TextInput
+              placeholder='title'
+              keyboardType='default'
+              style={{flexGrow: 10, padding: 8, fontSize: 16, height: 64, borderColor: 'gray', borderWidth: 1}}
+              multiline={true} numberOfLines={2} editable={true}
+              onChangeText={(text) => this.setState({title: text})}
+              value={this.state.title} />
+          </View>
           <TextInput
             placeholder='content'
             keyboardType='default'
             multiline={true}
             numberOfLines={4}
             editable={true}
-            style={{flex: 10, padding: 8, fontSize: 14, borderColor: 'gray', borderWidth: 1}}
+            style={{flexGrow: 20, padding: 8, fontSize: 14, borderColor: 'gray', borderWidth: 1}}
             onChangeText={(text) => this.setState({content: text})}
             value={this.state.content} />
           <OKCancelButtons
