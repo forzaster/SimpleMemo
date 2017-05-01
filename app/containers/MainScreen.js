@@ -28,7 +28,7 @@ class MainScreen extends Component {
         </TouchableHighlight>
       ),
     }),
-  };
+  }
 
   componentWillReceiveProps(nextProps) {
     const { dispatch } = nextProps

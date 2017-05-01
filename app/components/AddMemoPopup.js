@@ -5,8 +5,20 @@ import { styles } from '../styles'
 import { strings } from '../resources/strings'
 import { AddMemoFAB} from './AddMemoFAB'
 import OKCancelButtons from './OKCancelButtons'
+import ImagePicker from 'react-native-image-picker'
 
 export default class AddMemoPopup extends Component {
+  static imagePickerOptions = {
+    title: 'Select Photo',
+    customButtons: [
+      {name: 'memo', title: 'Choose Photo'},
+    ],
+    storageOptions: {
+      skipBackup: true,
+      path: 'images'
+    }
+  }
+
   constructor(props) {
     super(props);
     var title = ""
@@ -25,6 +37,8 @@ export default class AddMemoPopup extends Component {
       id: id,
       height: 0
     };
+
+    this.pickImage = this.pickImage.bind(this)
   }
 
   componentDidMount() {
@@ -43,7 +57,18 @@ export default class AddMemoPopup extends Component {
       return (
         <Animated.View style={this.state.style} >
           <View style={{flexGrow: 1, height: 48, flexDirection: 'row'}}>
-            <Image style={{flexGrow: 1, width: 64, height: 64}} source={require('../resources/ic_add_3x.png')}/>
+            <TouchableHighlight
+              style={{flexGrow: 1, width: 64, height: 64}}
+              underlayColor="#99999999"
+              onPress={this.pickImage}>
+              {(() => {
+                if (this.state.image) {
+                  return (<Image style={{width: '100%', height: '100%'}} source={{uri: this.state.image}}/>);
+                } else {
+                  return (<Image style={{width: '100%', height: '100%'}} source={require('../resources/ic_add_3x.png')}/>);
+                }
+              })()}
+            </TouchableHighlight>
             <TextInput
               placeholder='title'
               keyboardType='default'
@@ -75,5 +100,28 @@ export default class AddMemoPopup extends Component {
             }}/>
         </Animated.View>
       );
+  }
+
+  pickImage() {
+    ImagePicker.showImagePicker(this.imagePickerOptions, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+        let source = { uri: response.uri };
+        console.log(source)
+        this.setState(Object.assign({}, this.state, {
+          image: response.uri,
+        }))
+      }
+    })
   }
 }
