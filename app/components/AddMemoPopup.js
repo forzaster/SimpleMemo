@@ -24,10 +24,12 @@ export default class AddMemoPopup extends Component {
     var title = ""
     var content = ""
     var id = undefined
+    var image = ""
     if (props.memoData) {
       title = props.memoData.title
       content = props.memoData.content
       id = props.memoData.id
+      image = props.memoData.image
     }
     this.state = {
       style: StyleSheet.flatten([styles.popup,
@@ -35,6 +37,7 @@ export default class AddMemoPopup extends Component {
       title: title,
       content: content,
       id: id,
+      image: image,
       height: 0
     };
 
@@ -92,7 +95,8 @@ export default class AddMemoPopup extends Component {
                 title: this.state.title,
                 content: this.state.content,
                 id: this.state.id,
-                date: d
+                date: d,
+                image: this.state.image
               }))
             }}
             onCancel={() => {

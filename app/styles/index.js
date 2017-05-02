@@ -72,7 +72,7 @@ export const styles = StyleSheet.create({
   },
   itemTitleText: {
     fontSize: 16,
-    paddingTop: 16,
+    paddingTop: 20,
     paddingBottom: 4,
     paddingLeft: 16,
     paddingRight: 16,
@@ -81,7 +81,6 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     color: "#000000",
     opacity: 0.54,
-    paddingTop: 4,
     paddingBottom: 16,
     paddingLeft: 16,
     paddingRight: 16,

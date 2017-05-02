@@ -10,7 +10,8 @@ let realm = new Realm({
       id: 'int',
       title: 'string',
       content: 'string',
-      date: 'date'
+      date: 'date',
+      image: 'string'
     }}]
 });
 
