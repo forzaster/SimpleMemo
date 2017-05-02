@@ -1,8 +1,49 @@
 import Realm from 'realm'
 
+const SETTING = 'Setting'
+
+let settingRealm = new Realm({
+  path: 'setting.realm',
+  schema: [{
+    name: SETTING,
+    primaryKey: 'id',
+    properties: {
+      id: 'int',
+      crypto: 'int'
+    }
+  }]
+});
+
+let settings = settingRealm.objects(SETTING).slice(0, 1)
+let settingValue = null
+if (settings.length > 0) {
+  settingValue = settings[0]
+}
+
+export const updateSetting = (data) => {
+  settingRealm.write(() => {
+    let v = Object.assign({}, data.data, settingValue)
+    settingRealm.create(SETTING, v, true)
+    settingValue = v
+  });
+}
+
+export const writeSetting = (data) => {
+  if (settingValue == null) {
+    settingRealm.write(() => {
+      let v = Object.assign({}, data.data, {id: 0})
+      settingRealm.create(SETTING, v, true)
+      settingValue = v
+    });
+  } else {
+    updateSetting(data)
+  }
+}
+
 const MEMO = 'Memo'
 
 let realm = new Realm({
+  path: 'main.realm',
   schema: [{
     name: MEMO,
     primaryKey: 'id',
