@@ -25,7 +25,8 @@ export const actionGoTo = (next, _navigate) => ({
   nextScreen: next,
   navigate: _navigate
 })
-export const createAction = (typeStr, d) => ({
+export const createAction = (typeStr, d, cb) => ({
   type: typeStr,
-  data: d
+  data: d,
+  callback: cb
 })

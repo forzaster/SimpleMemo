@@ -7,18 +7,9 @@ import { AddMemoFAB} from './AddMemoFAB'
 import OKCancelButtons from './OKCancelButtons'
 import ImagePicker from 'react-native-image-picker'
 
-export default class AddMemoPopup extends Component {
-  static imagePickerOptions = {
-    title: 'Select Photo',
-    customButtons: [
-      {name: 'memo', title: 'Choose Photo'},
-    ],
-    storageOptions: {
-      skipBackup: true,
-      path: 'images'
-    }
-  }
+const SIMPLE_MEMO_IMAGE_FOLDER = 'simplememo_images'
 
+export default class AddMemoPopup extends Component {
   constructor(props) {
     super(props);
     var title = ""
@@ -107,9 +98,7 @@ export default class AddMemoPopup extends Component {
   }
 
   pickImage() {
-    ImagePicker.showImagePicker(this.imagePickerOptions, (response) => {
-      console.log('Response = ', response);
-
+    ImagePicker.showImagePicker({storageOptions: {path: SIMPLE_MEMO_IMAGE_FOLDER}}, (response) => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       }
@@ -120,8 +109,6 @@ export default class AddMemoPopup extends Component {
         console.log('User tapped custom button: ', response.customButton);
       }
       else {
-        let source = { uri: response.uri };
-        console.log(source)
         this.setState(Object.assign({}, this.state, {
           image: response.uri,
         }))

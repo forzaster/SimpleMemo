@@ -11,6 +11,7 @@ export default class ListItem extends Component {
 
   render() {
     const {rowData, fadeAnim, onItemClick} = this.props;
+    console.log("Image " + rowData.image)
     return (
       <TouchableHighlight
         style={styles.item}
