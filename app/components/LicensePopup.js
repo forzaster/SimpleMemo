@@ -8,21 +8,9 @@ import licenseHtml from '../resources/license'
 export default class LicensePopup extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      style: StyleSheet.flatten([styles.popup,
-        {top: new Animated.Value(200)}]),
-      height: 0
-    };
   }
 
   componentDidMount() {
-    Animated.spring(
-      this.state.style.top,
-      {
-        toValue: 20,
-        duration: 100,
-      }
-    ).start();
   }
 
   render() {

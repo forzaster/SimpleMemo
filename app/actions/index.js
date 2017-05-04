@@ -5,6 +5,7 @@ export const ACTION_UPDATE_MEMO = 'UPDATE_MEMO'
 export const ACTION_GOTO = 'GO_TO'
 export const ACTION_SHOW_LICENSE = 'SHOW_LICENSE'
 export const ACTION_CRYPTO_DB = 'CRYPTO_DB'
+export const ACTION_ENTER_PIN = 'ENTER_PIN'
 
 export const actionShowAddMemo = (d) => ({
   type: ACTION_SHOW_ADD_MEMO,

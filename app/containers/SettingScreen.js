@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import { BlurView } from 'react-native-blur'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
-import { createAction, ACTION_SHOW_LICENSE, ACTION_CRYPTO_DB } from '../actions'
+import { createAction, ACTION_SHOW_LICENSE, ACTION_CRYPTO_DB, ACTION_ENTER_PIN } from '../actions'
 import LicensePopup from '../components/LicensePopup'
+import PinPopup from '../components/PinPopup'
 
 const ITEM_TYPE_NORMAL = 0
 const ITEM_TYPE_SWITCH = 1
@@ -56,6 +57,21 @@ class SettingScreen extends Component {
               </View>
             )
           }
+          if (settings.enterPin) {
+            return (
+              <BlurView blurType="light" blurAmount={5} style={styles.popupParent}>
+              <View style={styles.popupParent} pointerEvents="box-none">
+                <PinPopup
+                  onOK={() => {
+                    dispatch(createAction(ACTION_ENTER_PIN, false, null))
+                  }}
+                  onCancel={() =>{
+                    dispatch(createAction(ACTION_ENTER_PIN, false, null))
+                  }}/>
+              </View>
+              </BlurView>
+            )
+          }
           if (settings.crypto && this.state.progress < 1.0) {
             return (
               <BlurView blurType="light" blurAmount={5} style={styles.popupParent}>
@@ -74,6 +90,10 @@ class SettingScreen extends Component {
     this.setState({progress: p})
   }
 
+  setCrypto() {
+
+  }
+
   renderRow(rowData) {
     const { dispatch } = this.props;
     var callback = rowData.progress == 0.0 ? this.setProgress : null
@@ -83,7 +103,9 @@ class SettingScreen extends Component {
           underlayColor="#AAAAAAAA"
           onPress={() => {
             if (rowData.action) {
-              if (rowData.type == ITEM_TYPE_SWITCH) {
+              if (rowData.action == ACTION_CRYPTO_DB && !listItems[rowData.id].data) {
+                dispatch(createAction(ACTION_ENTER_PIN, true, null))
+              } else if (rowData.type == ITEM_TYPE_SWITCH) {
                 var value = listItems[rowData.id].data ? false : true
                 listItems[rowData.id].data = value
                 this.setState({dataSource:
@@ -104,12 +126,16 @@ class SettingScreen extends Component {
             {(() => {
               if (rowData.type == ITEM_TYPE_SWITCH) {
                 return (<Switch onValueChange={(value) => {
-                  listItems[rowData.id].data = value
-                  this.setState({dataSource:
-                    new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 || r1.data !== r2.data})
-                    .cloneWithRows(listItems)
-                  })
-                  dispatch(createAction(rowData.action, value, callback))
+                  if (rowData.action == ACTION_CRYPTO_DB && value) {
+                    dispatch(createAction(ACTION_ENTER_PIN, true, null))
+                  } else {
+                    listItems[rowData.id].data = value
+                    this.setState({dataSource:
+                      new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 || r1.data !== r2.data})
+                      .cloneWithRows(listItems)
+                    })
+                    dispatch(createAction(rowData.action, value, callback))
+                  }
                 }}
                 value={rowData.data} />)
               }

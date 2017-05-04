@@ -1,5 +1,5 @@
 import { ListView, InteractionManager } from 'react-native'
-import { ACTION_SHOW_LICENSE, ACTION_CRYPTO_DB } from '../actions'
+import { ACTION_SHOW_LICENSE, ACTION_CRYPTO_DB, ACTION_ENTER_PIN } from '../actions'
 import { writeSetting, switchMainDB } from './model'
 
 const settings = (state = {license: false}, action) => {
@@ -15,6 +15,10 @@ const settings = (state = {license: false}, action) => {
       });
       return Object.assign({}, state, {
         crypto: action.data
+      })
+    case ACTION_ENTER_PIN:
+      return Object.assign({}, state, {
+        enterPin: action.data
       })
     default:
       return state
