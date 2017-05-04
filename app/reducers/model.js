@@ -1,6 +1,12 @@
 import Realm from 'realm'
+import RNFS from 'react-native-fs'
 
 const SETTING = 'Setting'
+const MEMO = 'Memo'
+export const MEMO_IMAGE_FOLDER = 'memo_images'
+
+export const DOCUMENTS_PATH = 'file://' + RNFS.DocumentDirectoryPath
+//export const DOCUMENTS_PATH = ''
 
 let settingRealm = new Realm({
   path: 'setting.realm',
@@ -45,8 +51,6 @@ export const writeSetting = (data) => {
   }
 }
 
-const MEMO = 'Memo'
-
 createRealm = (path, key) => {
   var dbschema = {
       name: MEMO,
@@ -88,12 +92,20 @@ let memos = realm.objects(MEMO)
 export const writeMemo = (data) => {
   memo_id++
   realm.write(() => {
+    if (data.data.image) {
+      data.data.image = data.data.image.replace(DOCUMENTS_PATH, '')
+      console.log("writememo " + data.data.image)
+    }
     realm.create(MEMO, Object.assign({}, data.data, {id: memo_id}))
   });
 }
 
 export const updateMemo = (data) => {
   realm.write(() => {
+    if (data.data.image) {
+      data.data.image = data.data.image.replace(DOCUMENTS_PATH, '')
+      console.log("updatememo " + data.data.image)
+    }
     realm.create(MEMO, data.data, true)
   });
 }

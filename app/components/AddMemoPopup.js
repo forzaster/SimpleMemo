@@ -3,11 +3,10 @@ import { Button, TouchableHighlight, Image, View, Text, TextInput, Animated, Scr
 import { actionAddMemo, actionCancelAddMemo } from '../actions'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
-import { AddMemoFAB} from './AddMemoFAB'
+import { AddMemoFAB } from './AddMemoFAB'
 import OKCancelButtons from './OKCancelButtons'
 import ImagePicker from 'react-native-image-picker'
-
-const SIMPLE_MEMO_IMAGE_FOLDER = 'simplememo_images'
+import { DOCUMENTS_PATH, MEMO_IMAGE_FOLDER } from '../reducers/model'
 
 export default class AddMemoPopup extends Component {
   constructor(props) {
@@ -20,7 +19,7 @@ export default class AddMemoPopup extends Component {
       title = props.memoData.title
       content = props.memoData.content
       id = props.memoData.id
-      image = props.memoData.image
+      image = DOCUMENTS_PATH + props.memoData.image
     }
     this.state = {
       style: StyleSheet.flatten([styles.popup,
@@ -98,7 +97,7 @@ export default class AddMemoPopup extends Component {
   }
 
   pickImage() {
-    ImagePicker.showImagePicker({storageOptions: {path: SIMPLE_MEMO_IMAGE_FOLDER}}, (response) => {
+    ImagePicker.showImagePicker({storageOptions: {path: MEMO_IMAGE_FOLDER}}, (response) => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       }
