@@ -7,7 +7,9 @@ import AddMemoPopup from '../components/AddMemoPopup'
 import MemoList from '../components/MemoList'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
-import { actionGoTo } from '../actions'
+import { actionGoTo, createAction, ACTION_INIT_DB, ACTION_UPDATE_MEMO } from '../actions'
+import { getCrypto } from '../reducers/model'
+import PinPopup from '../components/PinPopup'
 
 class MainScreen extends Component {
   static navigationOptions = {
@@ -43,6 +45,18 @@ class MainScreen extends Component {
 
   render() {
     const { dispatch, todos, memos, showAddMemo, memoData } = this.props
+
+    if (getCrypto() && !memos) {
+      return (
+        <PinPopup
+          onOK={(key4) => {
+            dispatch(createAction(ACTION_INIT_DB, key4, null))
+            dispatch(createAction(ACTION_UPDATE_MEMO, null, null))
+          }}
+          onCancel={() =>{
+          }}/>
+      )
+    }
     return (
       <View style={styles.container}>
         <View>

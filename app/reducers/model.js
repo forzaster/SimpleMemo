@@ -16,7 +16,6 @@ let settingRealm = new Realm({
     properties: {
       id: 'int',
       crypto: 'bool',
-      key: 'data'
     }
   }]
 });
@@ -34,19 +33,15 @@ export const getCrypto = () => {
 export const updateSetting = (data) => {
   settingRealm.write(() => {
     settingValue.crypto = data.crypto
-    //console.log("AAA " + data.crypto + " " + v.crypto + " " + v.id)
     settingRealm.create(SETTING, settingValue, true)
   });
 }
 
 export const writeSetting = (data) => {
-  if (data.crypto) {
-    var key = new ArrayBuffer(64)
-    data = Object.assign({}, data, {key: key})
-  }
   if (settingValue == null) {
     settingRealm.write(() => {
-      let v = Object.assign({}, data, {id: 0})
+      let v = {id: 0, crypto: data.crypto}
+      console.log('v=' + v + ', id=' + v.id + ', crypto=' + data.data)
       settingRealm.create(SETTING, v, true)
       settingValue = v
     });
@@ -82,20 +77,40 @@ createRealm = (path, key) => {
   }
 }
 
-let realm =  settingValue == null ? createRealm('main.realm', null) :
-  createRealm(
-    settingValue.crypto ? 'maincrypto.realm' : 'main.realm',
-    settingValue.crypto ? new Int8Array(settingValue.key) : null)
-
-let last_memo = realm.objects(MEMO).sorted('id', true).slice(0, 1)
+let realm = null
 let memo_id = 0
+let memos = null
 
-if (last_memo.length > 0) {
-  memo_id = last_memo[0].id
+getKey = (key4) => {
+  var key_ = new ArrayBuffer(64)
+  var key = new Int8Array(key_)
+
+  for (var i = 0; i < 64; i++) {
+    if (i < 4) {
+      key[i] = key4[i]
+    } else {
+      key[i] = 0
+    }
+  }
+
+  return key
 }
-let memos = realm.objects(MEMO)
 
-console.log("memos " + memos.length)
+export const initDb = (key4) => {
+  realm =  settingValue == null ? createRealm('main.realm', null) :
+    createRealm(
+      settingValue.crypto ? 'maincrypto.realm' : 'main.realm',
+      settingValue.crypto ? getKey(key4) : null)
+
+  let last_memo = realm.objects(MEMO).sorted('id', true).slice(0, 1)
+  memo_id = 0
+
+  if (last_memo.length > 0) {
+    memo_id = last_memo[0].id
+  }
+  memos = realm.objects(MEMO)
+  console.log("memos " + memos.length)
+}
 
 export const writeMemo = (data) => {
   memo_id++
@@ -119,16 +134,13 @@ export const updateMemo = (data) => {
 }
 
 export const getMemo = () => {
-  let ret = realm.objects(MEMO)
-  if (ret == null) {
-    return []
-  }
-  return ret
+  return memos
 }
 
-export const switchMainDB = (crypto, callback) => {
-  var key = crypto ? new Int8Array(settingValue.key) : null
+export const switchMainDB = (crypto, key4, callback) => {
+  var key = crypto ? getKey(key4) : null
   var dbname = crypto ? 'maincrypto.realm' : 'main.realm'
+
   let newRealm = createRealm(dbname, key)
 
   var data = realm.objects(MEMO)
@@ -157,4 +169,8 @@ export const switchMainDB = (crypto, callback) => {
 
   console.log("Switch DB to " + crypto)
   if (callback) callback(1.0)
+}
+
+if (settingValue == null || !settingValue.crypto) {
+  initDb(null)
 }

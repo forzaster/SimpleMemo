@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { BlurView } from 'react-native-blur'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
-import { createAction, ACTION_SHOW_LICENSE, ACTION_CRYPTO_DB, ACTION_ENTER_PIN } from '../actions'
+import { createAction, actionCryptoDB, ACTION_SHOW_LICENSE, ACTION_CRYPTO_DB, ACTION_ENTER_PIN } from '../actions'
 import LicensePopup from '../components/LicensePopup'
 import PinPopup from '../components/PinPopup'
 import { getCrypto } from '../reducers/model'
@@ -63,13 +63,15 @@ class SettingScreen extends Component {
               <BlurView blurType="light" blurAmount={5} style={styles.popupParent}>
                 <View style={styles.popupParent} pointerEvents="box-none">
                   <PinPopup
-                    onOK={() => {
+                    onOK={(pin) => {
                       listItems[0].data = true
                       this.setState({dataSource:
                         new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 || r1.data !== r2.data})
                         .cloneWithRows(listItems)
                       })
-                      dispatch(createAction(ACTION_CRYPTO_DB, true, this.setProgress))
+                      var action =actionCryptoDB(true, pin, this.setProgress)
+                      console.log("crypto=" + action.data)
+                      dispatch(action)
                     }}
                     onCancel={() =>{
                       dispatch(createAction(ACTION_ENTER_PIN, false, null))

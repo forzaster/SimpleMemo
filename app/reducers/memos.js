@@ -4,7 +4,7 @@ import { ACTION_SHOW_ADD_MEMO, ACTION_CANCEL_ADD_MEMO, ACTION_ADD_MEMO, ACTION_U
 
 let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-const memos = (state = {memos:dataSource.cloneWithRows(getMemo())}, action) => {
+const memos = (state = {memos: getMemo() ? dataSource.cloneWithRows(getMemo()) : null}, action) => {
   switch (action.type) {
     case ACTION_SHOW_ADD_MEMO:
       return Object.assign({}, state, {
