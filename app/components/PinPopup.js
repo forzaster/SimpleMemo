@@ -20,7 +20,6 @@ export default class PinPopup extends Component {
     const buttonStyle = {margin: 10, width: 64, height: 64, borderRadius: 32,
        borderWidth: 1, alignItems: 'center', justifyContent: 'center'}
     let dummyStr = []
-    console.log("this.state.pin.length= " + this.state.pin.length)
     for (var i = 0; i < 4; i++) {
       if (i < this.state.pin.length) {
         dummyStr.push('#000000')
@@ -137,7 +136,9 @@ export default class PinPopup extends Component {
           </View>
         </View>
         <OKCancelButtons
+          okDisable={this.state.pin.length < 4}
           onOK={()=> {
+            onOK(this.state.pin)
           }}
           onCancel={() => {
             if (this.state.pin.length > 0) {

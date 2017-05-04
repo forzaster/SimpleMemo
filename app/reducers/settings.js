@@ -14,7 +14,8 @@ const settings = (state = {license: false}, action) => {
         switchMainDB(action.data, action.callback)
       });
       return Object.assign({}, state, {
-        crypto: action.data
+        crypto: action.data,
+        enterPin: false
       })
     case ACTION_ENTER_PIN:
       return Object.assign({}, state, {

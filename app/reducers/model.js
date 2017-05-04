@@ -27,11 +27,15 @@ if (settings.length > 0) {
   settingValue = settings[0]
 }
 
+export const getCrypto = () => {
+  return settingValue != null && settingValue.crypto
+}
+
 export const updateSetting = (data) => {
   settingRealm.write(() => {
-    let v = Object.assign({}, data, settingValue)
-    settingRealm.create(SETTING, v, true)
-    settingValue = v
+    settingValue.crypto = data.crypto
+    //console.log("AAA " + data.crypto + " " + v.crypto + " " + v.id)
+    settingRealm.create(SETTING, settingValue, true)
   });
 }
 
@@ -63,12 +67,14 @@ createRealm = (path, key) => {
         image: 'string'
       }}
   if (key) {
+    console.log("encrypto DB")
     return new Realm({
       path: path,
       encryptionKey: key,
       schema: [dbschema]
     })
   } else {
+    console.log("Normal DB")
     return new Realm({
       path: path,
       schema: [dbschema]
@@ -88,6 +94,8 @@ if (last_memo.length > 0) {
   memo_id = last_memo[0].id
 }
 let memos = realm.objects(MEMO)
+
+console.log("memos " + memos.length)
 
 export const writeMemo = (data) => {
   memo_id++
@@ -126,17 +134,20 @@ export const switchMainDB = (crypto, callback) => {
   var data = realm.objects(MEMO)
   var prevProgress = 0.0
   if (callback) callback(0.0)
-  for (var i = 0; i < data.length; i++) {
-    newRealm.write(() => {
+  newRealm.write(() => {
+    var prevAll = newRealm.objects(MEMO)
+    newRealm.delete(prevAll)
+
+    for (var i = 0; i < data.length; i++) {
       newRealm.create(MEMO, data[i])
-    })
-    if (callback) {
-      var progress = parseFloat(i+1) / parseFloat(data.length)
-      if (progress > prevProgress + 0.1) {
-        callback(progress)
+      if (callback) {
+        var progress = parseFloat(i+1) / parseFloat(data.length)
+        if (progress > prevProgress + 0.1) {
+          callback(progress)
+        }
       }
     }
-  }
+  })
 
   realm.write(() => {
     var alldata = realm.objects(MEMO)
@@ -144,5 +155,6 @@ export const switchMainDB = (crypto, callback) => {
   })
   realm = newRealm
 
+  console.log("Switch DB to " + crypto)
   if (callback) callback(1.0)
 }

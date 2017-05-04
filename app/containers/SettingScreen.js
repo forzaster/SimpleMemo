@@ -7,6 +7,7 @@ import { strings } from '../resources/strings'
 import { createAction, ACTION_SHOW_LICENSE, ACTION_CRYPTO_DB, ACTION_ENTER_PIN } from '../actions'
 import LicensePopup from '../components/LicensePopup'
 import PinPopup from '../components/PinPopup'
+import { getCrypto } from '../reducers/model'
 
 const ITEM_TYPE_NORMAL = 0
 const ITEM_TYPE_SWITCH = 1
@@ -29,6 +30,7 @@ class SettingScreen extends Component {
     super(props)
     this.renderRow = this.renderRow.bind(this)
     this.setProgress = this.setProgress.bind(this)
+    listItems[0].data = getCrypto()
     this.state = {
       dataSource:
         new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 || r1.data !== r2.data})
@@ -39,7 +41,6 @@ class SettingScreen extends Component {
 
   render() {
     const { dispatch, settings } = this.props;
-    console.log("render setting " + this.state.progress)
     return (
       <View style={styles.container}>
         <ListView
@@ -60,15 +61,20 @@ class SettingScreen extends Component {
           if (settings.enterPin) {
             return (
               <BlurView blurType="light" blurAmount={5} style={styles.popupParent}>
-              <View style={styles.popupParent} pointerEvents="box-none">
-                <PinPopup
-                  onOK={() => {
-                    dispatch(createAction(ACTION_ENTER_PIN, false, null))
-                  }}
-                  onCancel={() =>{
-                    dispatch(createAction(ACTION_ENTER_PIN, false, null))
-                  }}/>
-              </View>
+                <View style={styles.popupParent} pointerEvents="box-none">
+                  <PinPopup
+                    onOK={() => {
+                      listItems[0].data = true
+                      this.setState({dataSource:
+                        new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2 || r1.data !== r2.data})
+                        .cloneWithRows(listItems)
+                      })
+                      dispatch(createAction(ACTION_CRYPTO_DB, true, this.setProgress))
+                    }}
+                    onCancel={() =>{
+                      dispatch(createAction(ACTION_ENTER_PIN, false, null))
+                    }}/>
+                </View>
               </BlurView>
             )
           }
