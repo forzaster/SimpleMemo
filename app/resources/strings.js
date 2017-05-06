@@ -7,7 +7,7 @@ export let strings = new  LocalizedStrings({
     Home: "Home",
     Settings: "Settings",
     Crypto: "Protect by PIN",
-    CryptoContent: "Crypto DB by key containing PIN"
+    CryptoContent: "Crypto Data by key containing PIN"
   },
   ja:{
     OK: "OK",
@@ -15,6 +15,6 @@ export let strings = new  LocalizedStrings({
     Home: "Home",
     Settings: "Settings",
     Crypto: "暗証番号で保護",
-    CryptoContent: "データベースを暗号化して保護"
+    CryptoContent: "データを暗号化して保護"
   }
 });

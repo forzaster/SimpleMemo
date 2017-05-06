@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableHighlight, Image, Platform } from 'react-native'
 import { connect } from 'react-redux'
-import { BlurView } from 'react-native-blur'
 import AddMemoFAB from '../components/AddMemoFAB'
 import AddMemoPopup from '../components/AddMemoPopup'
 import MemoList from '../components/MemoList'
@@ -32,7 +31,13 @@ class MainScreen extends Component {
     }),
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("shouldComponentUpdate " + nextProps + " " + nextState)
+    return true
+  }
+
   componentWillReceiveProps(nextProps) {
+    console.log("componentWillReceiveProps")
     const { dispatch } = nextProps
     if (nextProps.navigation.state.params != null) {
       if (nextProps.navigation.state.params.toSetting == true) {
@@ -44,8 +49,8 @@ class MainScreen extends Component {
   }
 
   render() {
-    const { dispatch, todos, memos, showAddMemo, memoData } = this.props
-
+    const { dispatch, todos, memos, showAddMemo, memoData, curScreen, prevScreen } = this.props
+    console.log("Screen " + prevScreen + " -> " + curScreen)
     if (getCrypto() && !memos) {
       return (
         <PinPopup
@@ -71,24 +76,16 @@ class MainScreen extends Component {
         </View>
           {(() => {
             if (showAddMemo) {
-              if (Platform.OS == 'android') {
-                // workaround for crash due to BlurView when android
+              return (
+                <View style={{position: 'absolute',
+                width: '100%', height: '100%', backgroundColor: '#000000', opacity: 0.5}}/>
+              )
+            }
+          })()}
+          {(() => {
+            if (showAddMemo) {
                 return (
-                  <View style={styles.popupParent} pointerEvents="box-none">
-                    <AddMemoPopup
-                      onAddClick={action => {
-                        dispatch(action)
-                      }}
-                      onCancelClick={action => {
-                        dispatch(action)
-                      }}
-                      memoData={memoData}/>
-                  </View>
-                );
-              } else {
-                return (
-                  <BlurView blurType="light" blurAmount={5} style={styles.popupParent}>
-                    <View style={styles.popupParent} pointerEvents="box-none">
+                    <View style={styles.addmemoPopupParent} pointerEvents="box-none">
                       <AddMemoPopup
                         onAddClick={action => {
                           dispatch(action)
@@ -98,9 +95,7 @@ class MainScreen extends Component {
                         }}
                         memoData={memoData}/>
                     </View>
-                  </BlurView>
                 );
-              }
             }
           })()}
       </View>
@@ -113,7 +108,9 @@ function mapStateToProps(state) {
     todos: state.todos,
     memos: state.memos.memos,
     showAddMemo: state.memos.showAddMemo,
-    memoData: state.memos.memoData
+    memoData: state.memos.memoData,
+    curScreen: state.screen.currentScreen,
+    prevScreen: state.screen.prevScreen,
   }
 }
 

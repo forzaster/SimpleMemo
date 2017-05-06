@@ -33,7 +33,7 @@ export default class ListItem extends Component {
               <View>
                 <Text style={StyleSheet.flatten([styles.itemTitleText,
                   {paddingRight: 16}])} ellipSizeMode='tail' numberOfLines={1}>{rowData.title}</Text>
-                <Text style={styles.itemContentText}>{rowData.date.toDateString()}</Text>
+                <Text style={styles.itemContentText}>{rowData.date.toLocaleString()}</Text>
               </View>
             </View>
             <Text style={StyleSheet.flatten([styles.itemContentText,

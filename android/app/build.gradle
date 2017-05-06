@@ -143,7 +143,6 @@ repositories {
 dependencies {
     compile project(':react-native-fs')
     compile project(':react-native-image-picker')
-    compile project(':react-native-blur')
     compile project(':react-native-localization')
     compile project(':realm')
     compile fileTree(dir: "libs", include: ["*.jar"])

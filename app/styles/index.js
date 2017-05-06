@@ -34,6 +34,25 @@ export const styles = StyleSheet.create({
     backgroundColor: '#BBAAAAAA',
     flex: 1
   },
+  addmemoPopupParent: {
+    width: '100%',
+    height: '50%',
+    position: 'absolute',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  addmemopopup: {
+    width: '95%',
+    height: '95%',
+    position: 'absolute',
+    alignSelf: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    borderRadius: 8,
+    padding: 8,
+    backgroundColor: '#CCCCCC',
+    flex: 1
+  },
   circleButton: {
     width: 40,
     height: 40,

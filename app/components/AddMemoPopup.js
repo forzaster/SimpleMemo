@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, TouchableHighlight, Image, View, Text, TextInput, Animated, ScrollView, StyleSheet } from 'react-native'
+import { Button, KeyboardAvoidingView, TouchableHighlight, Image, View, Text, TextInput, Animated, ScrollView, StyleSheet } from 'react-native'
 import { actionAddMemo, actionCancelAddMemo } from '../actions'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
@@ -22,7 +22,7 @@ export default class AddMemoPopup extends Component {
       image = DOCUMENTS_PATH + props.memoData.image
     }
     this.state = {
-      style: StyleSheet.flatten([styles.popup,
+      style: StyleSheet.flatten([styles.addmemopopup,
         {top: new Animated.Value(200)}]),
       title: title,
       content: content,
@@ -49,6 +49,19 @@ export default class AddMemoPopup extends Component {
       const d = new Date()
       return (
         <Animated.View style={this.state.style} >
+          <OKCancelButtons
+            onOK={()=> {
+              onAddClick(actionAddMemo({
+                title: this.state.title,
+                content: this.state.content,
+                id: this.state.id,
+                date: d,
+                image: this.state.image
+              }))
+            }}
+            onCancel={() => {
+              onCancelClick(actionCancelAddMemo())
+            }}/>
           <View style={{flexGrow: 1, height: 48, flexDirection: 'row'}}>
             <TouchableHighlight
               style={{flexGrow: 1, width: 64, height: 64}}
@@ -76,22 +89,9 @@ export default class AddMemoPopup extends Component {
             multiline={true}
             numberOfLines={4}
             editable={true}
-            style={{flexGrow: 20, padding: 8, fontSize: 14, borderColor: 'gray', borderWidth: 1}}
+            style={{width: '100%', flexGrow: 5, padding: 8, borderWidth: 1, fontSize: 14}}
             onChangeText={(text) => this.setState({content: text})}
             value={this.state.content} />
-          <OKCancelButtons
-            onOK={()=> {
-              onAddClick(actionAddMemo({
-                title: this.state.title,
-                content: this.state.content,
-                id: this.state.id,
-                date: d,
-                image: this.state.image
-              }))
-            }}
-            onCancel={() => {
-              onCancelClick(actionCancelAddMemo())
-            }}/>
         </Animated.View>
       );
   }

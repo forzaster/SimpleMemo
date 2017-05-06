@@ -167,6 +167,7 @@ export const switchMainDB = (crypto, key4, callback) => {
   })
   realm = newRealm
 
+  memos = realm.objects(MEMO)
   console.log("Switch DB to " + crypto)
   if (callback) callback(1.0)
 }

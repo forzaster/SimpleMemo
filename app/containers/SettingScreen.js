@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, Switch, ListView, TouchableHighlight, WebView, ProgressViewIOS } from 'react-native'
 import { connect } from 'react-redux'
-import { BlurView } from 'react-native-blur'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
-import { createAction, actionCryptoDB, ACTION_SHOW_LICENSE, ACTION_CRYPTO_DB, ACTION_ENTER_PIN } from '../actions'
+import { createAction, actionCryptoDB, ACTION_SHOW_LICENSE, ACTION_CRYPTO_DB, ACTION_ENTER_PIN, ACTION_UPDATE_MEMO } from '../actions'
 import LicensePopup from '../components/LicensePopup'
 import PinPopup from '../components/PinPopup'
 import { getCrypto } from '../reducers/model'
@@ -60,8 +59,7 @@ class SettingScreen extends Component {
           }
           if (settings.enterPin) {
             return (
-              <BlurView blurType="light" blurAmount={5} style={styles.popupParent}>
-                <View style={styles.popupParent} pointerEvents="box-none">
+                <View style={[styles.popupParent, {backgroundColor: '#EEEEEE'}]} pointerEvents="box-none">
                   <PinPopup
                     onOK={(pin) => {
                       listItems[0].data = true
@@ -77,16 +75,13 @@ class SettingScreen extends Component {
                       dispatch(createAction(ACTION_ENTER_PIN, false, null))
                     }}/>
                 </View>
-              </BlurView>
             )
           }
           if (settings.crypto && this.state.progress < 1.0) {
             return (
-              <BlurView blurType="light" blurAmount={5} style={styles.popupParent}>
-                <View style={styles.popupParent} pointerEvents="box-none">
-                  <ProgressViewIOS style={styles.popup} progress={this.state.progress}/>
-                </View>
-              </BlurView>
+              <View style={[styles.popupParent, {backgroundColor: '#AAAAAA'}]} pointerEvents="box-none">
+                <ProgressViewIOS style={styles.popup} progress={this.state.progress}/>
+              </View>
             )
           }
         })()}
@@ -95,11 +90,11 @@ class SettingScreen extends Component {
   }
 
   setProgress(p) {
+    const { dispatch } = this.props;
     this.setState({progress: p})
-  }
-
-  setCrypto() {
-
+    if (p == 1.0) {
+      dispatch(createAction(ACTION_UPDATE_MEMO, null, null))
+    }
   }
 
   renderRow(rowData) {
