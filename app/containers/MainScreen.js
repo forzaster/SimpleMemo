@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, Image, Platform } from 'react-native'
+import { View, Text, TouchableHighlight, Image, Platform, Animated } from 'react-native'
 import { connect } from 'react-redux'
 import AddMemoFAB from '../components/AddMemoFAB'
 import AddMemoPopup from '../components/AddMemoPopup'
@@ -29,11 +29,6 @@ class MainScreen extends Component {
         </TouchableHighlight>
       ),
     }),
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log("shouldComponentUpdate " + nextProps + " " + nextState)
-    return true
   }
 
   componentWillReceiveProps(nextProps) {
@@ -67,6 +62,9 @@ class MainScreen extends Component {
       <View style={styles.container}>
         <View>
           <MemoList dataSource={memos} onItemClick={action => {
+            let anim = new Animated.Value(0.0)
+            Animated.timing(anim, {toValue: 0.5, duration: 400}).start()
+            this.setState({bganim: anim})
             dispatch(action)
           }}/>
         </View>
@@ -78,8 +76,8 @@ class MainScreen extends Component {
           {(() => {
             if (showAddMemo) {
               return (
-                <View style={{position: 'absolute',
-                width: '100%', height: '100%', backgroundColor: '#000000', opacity: 0.5}}/>
+                <Animated.View style={{position: 'absolute',
+                width: '100%', height: '100%', backgroundColor: '#000000', opacity: this.state.bganim}}/>
               )
             }
           })()}
