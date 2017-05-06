@@ -110,13 +110,13 @@ export default class AddMemoPopup extends Component {
   pickImage() {
     ImagePicker.showImagePicker({storageOptions: {path: MEMO_IMAGE_FOLDER}}, (response) => {
       if (response.didCancel) {
-        console.log('User cancelled image picker');
+        //console.log('User cancelled image picker');
       }
       else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+        //console.log('ImagePicker Error: ', response.error);
       }
       else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
+        //console.log('User tapped custom button: ', response.customButton);
       }
       else {
         this.setState(Object.assign({}, this.state, {

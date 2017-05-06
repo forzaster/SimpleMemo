@@ -29,7 +29,8 @@ const memos = (state = {memos: getMemo() ? dataSource.cloneWithRows(getMemo()) :
       })
     case ACTION_UPDATE_MEMO:
       return Object.assign({}, state, {
-        memos: getMemo() ? dataSource.cloneWithRows(getMemo()) : null
+        memos: getMemo() ? dataSource.cloneWithRows(getMemo()) : null,
+        showAddMemo: false
       })
     case ACTION_DELETE_MEMO:
       deleteMemo(action.id)

@@ -14,7 +14,7 @@ const ITEM_TYPE_SWITCH = 1
 let listItems = [
   {id: 0, type: ITEM_TYPE_SWITCH, title: strings.Crypto, content: strings.CryptoContent, action: ACTION_CRYPTO_DB, data: false, progress: 0.0 },
   {id: 1, type: ITEM_TYPE_NORMAL, title: "License", content: undefined, action: ACTION_SHOW_LICENSE, data: true },
-  {id: 2, type: ITEM_TYPE_NORMAL, title: "App Version", content: "0.0.1", data: undefined}
+  {id: 2, type: ITEM_TYPE_NORMAL, title: "App Version", content: "1.0.0", data: undefined}
 ]
 
 class SettingScreen extends Component {
@@ -68,7 +68,6 @@ class SettingScreen extends Component {
                         .cloneWithRows(listItems)
                       })
                       var action =actionCryptoDB(true, pin, this.setProgress)
-                      console.log("crypto=" + action.data)
                       dispatch(action)
                     }}
                     onCancel={() =>{

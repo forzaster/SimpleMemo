@@ -9,7 +9,7 @@ const settings = (state = {license: false}, action) => {
         license: action.data
       })
     case ACTION_CRYPTO_DB:
-      writeSetting({crypto: action.data})
+      writeSetting({crypto: action.data, key: action.key4})
       InteractionManager.runAfterInteractions(() => {
         switchMainDB(action.data, action.key4, action.callback)
       });

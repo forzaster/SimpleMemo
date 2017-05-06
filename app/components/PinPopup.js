@@ -17,7 +17,6 @@ export default class PinPopup extends Component {
   }
 
   render() {
-    console.log("renderp in")
     const { onOK, onCancel } = this.props
     const buttonStyle = {margin: 10, width: 64, height: 64, borderRadius: 32,
        borderWidth: 1, alignItems: 'center', justifyContent: 'center'}
