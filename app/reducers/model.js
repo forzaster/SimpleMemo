@@ -112,7 +112,7 @@ export const initDb = (key4) => {
   if (last_memo.length > 0) {
     memo_id = last_memo[0].id
   }
-  memos = realm.objects(MEMO)
+  memos = realm.objects(MEMO).sorted('date', true)
   console.log("memos " + memos.length)
 }
 
@@ -171,9 +171,18 @@ export const switchMainDB = (crypto, key4, callback) => {
   })
   realm = newRealm
 
-  memos = realm.objects(MEMO)
+  memos = realm.objects(MEMO).sorted('date', true)
   console.log("Switch DB to " + crypto)
   if (callback) callback(1.0)
+}
+
+export const deleteMemo = (id) => {
+  realm.write(() => {
+    var data = realm.objects(MEMO).filtered('id = "' + id + '"');
+    realm.delete(data)
+  })
+
+  memos = realm.objects(MEMO).sorted('date', true)
 }
 
 if (settingValue == null || !settingValue.crypto) {

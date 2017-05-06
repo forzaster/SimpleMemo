@@ -37,7 +37,6 @@ export const styles = StyleSheet.create({
   addmemoPopupParent: {
     width: '100%',
     height: '50%',
-    position: 'absolute',
     justifyContent: 'center',
     alignSelf: 'center',
   },

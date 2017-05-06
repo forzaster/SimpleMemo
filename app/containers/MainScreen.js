@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, Image, Platform, Animated } from 'react-native'
+import { View, Text, TouchableHighlight, Image, Platform, Animated, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { connect } from 'react-redux'
 import AddMemoFAB from '../components/AddMemoFAB'
 import AddMemoPopup from '../components/AddMemoPopup'
@@ -7,7 +7,7 @@ import MemoList from '../components/MemoList'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
 import { actionGoTo, createAction, ACTION_INIT_DB, ACTION_UPDATE_MEMO } from '../actions'
-import { getCrypto } from '../reducers/model'
+import { getCrypto, DOCUMENTS_PATH } from '../reducers/model'
 import PinPopup from '../components/PinPopup'
 
 class MainScreen extends Component {
@@ -43,6 +43,12 @@ class MainScreen extends Component {
     }
   }
 
+  createAlphaAnim() {
+    let anim = new Animated.Value(0.0)
+    Animated.timing(anim, {toValue: 0.5, duration: 600}).start()
+    this.setState({bganim: anim})
+  }
+
   render() {
     const { dispatch, todos, memos, showAddMemo, memoData, curScreen, prevScreen } = this.props
     console.log("Screen " + prevScreen + " -> " + curScreen)
@@ -62,37 +68,53 @@ class MainScreen extends Component {
       <View style={styles.container}>
         <View>
           <MemoList dataSource={memos} onItemClick={action => {
-            let anim = new Animated.Value(0.0)
-            Animated.timing(anim, {toValue: 0.5, duration: 400}).start()
-            this.setState({bganim: anim})
+            this.createAlphaAnim()
             dispatch(action)
           }}/>
         </View>
         <View style={styles.fabParent} pointerEvents="box-none">
           <AddMemoFAB onAddClick={action => {
+            this.createAlphaAnim()
             dispatch(action)
           }} />
         </View>
           {(() => {
             if (showAddMemo) {
               return (
-                <Animated.View style={{position: 'absolute',
-                width: '100%', height: '100%', backgroundColor: '#000000', opacity: this.state.bganim}}/>
+                <TouchableWithoutFeedback
+                  style={{position: 'absolute',
+                    width: '100%', height: '100%'}}
+                  onPress={Keyboard.dismiss} >
+                  <Animated.View style={{position: 'absolute',
+                    width: '100%', height: '100%', backgroundColor: '#000000', opacity: this.state.bganim}}/>
+                </TouchableWithoutFeedback>
               )
             }
           })()}
           {(() => {
             if (showAddMemo) {
                 return (
-                    <View style={styles.addmemoPopupParent} pointerEvents="box-none">
-                      <AddMemoPopup
-                        onAddClick={action => {
-                          dispatch(action)
-                        }}
-                        onCancelClick={action => {
-                          dispatch(action)
-                        }}
-                        memoData={memoData}/>
+                    <View style={{position: 'absolute', width: '100%', height: '100%'}}>
+                      <View style={styles.addmemoPopupParent} pointerEvents="box-none">
+                        <AddMemoPopup
+                          onAddClick={action => {
+                            dispatch(action)
+                          }}
+                          onCancelClick={action => {
+                            dispatch(action)
+                          }}
+                          onDelete={action => {
+                            dispatch(action)
+                          }}
+                          memoData={memoData}/>
+                      </View>
+                      {(() => {
+                        if (memoData && memoData.image) {
+                          return (
+                            <Image style={{width: '100%', height: '50%', marginTop: 16, marginBottom: 16}}  resizeMode={Image.resizeMode.contain} source={{uri: DOCUMENTS_PATH + memoData.image}}/>
+                          )
+                        }
+                      })()}
                     </View>
                 );
             }

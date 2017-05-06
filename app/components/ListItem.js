@@ -25,7 +25,7 @@ export default class ListItem extends Component {
             <View style={{flexDirection: "row", height: 68 }}>
               {(() => {
                 if (rowData.image) {
-                  return (<Image style={{marginLeft: 16, marginTop: 16, marginBottom: 4, width: 48}} source={{uri: (DOCUMENTS_PATH + rowData.image)}}/>)
+                  return (<Image style={{marginLeft: 16, marginTop: 16, marginBottom: 4, width: 48}} resizeMode={Image.resizeMode.cover} source={{uri: (DOCUMENTS_PATH + rowData.image)}}/>)
                 } else {
                   return (<View style={{marginLeft: 16, marginTop: 16, marginBottom: 4, width: 48, backgroundColor: '#BBAAAAAA'}}/>)
                 }

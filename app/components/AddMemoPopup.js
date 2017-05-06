@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Button, KeyboardAvoidingView, TouchableHighlight, Image, View, Text, TextInput, Animated, ScrollView, StyleSheet } from 'react-native'
-import { actionAddMemo, actionCancelAddMemo } from '../actions'
+import { Button, TouchableHighlight, Image, View, Text, TextInput, Animated, ScrollView, StyleSheet } from 'react-native'
+import { actionAddMemo, actionCancelAddMemo, actionDeleteMemo } from '../actions'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
 import { AddMemoFAB } from './AddMemoFAB'
@@ -45,11 +45,14 @@ export default class AddMemoPopup extends Component {
   }
 
   render() {
-      const { onAddClick, onCancelClick } = this.props
+      const { onAddClick, onCancelClick, onDelete } = this.props
       const d = new Date()
+      let registered = this.state.id ? true : false
       return (
         <Animated.View style={this.state.style} >
+          <View style={{width: '66%', flexDirection: 'row'}}>
           <OKCancelButtons
+            style={{flexGrow:2}}
             onOK={()=> {
               onAddClick(actionAddMemo({
                 title: this.state.title,
@@ -62,14 +65,22 @@ export default class AddMemoPopup extends Component {
             onCancel={() => {
               onCancelClick(actionCancelAddMemo())
             }}/>
+            <View style={{width: '33%', flexGrow: 1}}>
+              <Button type="submit" title={strings.Delete} disabled={!registered} onPress={() => {
+                if (this.state.id) {
+                  onDelete(actionDeleteMemo(this.state.id))
+                }
+              }} />
+            </View>
+          </View>
           <View style={{flexGrow: 1, height: 48, flexDirection: 'row'}}>
             <TouchableHighlight
               style={{flexGrow: 1, width: 64, height: 64}}
               underlayColor="#99999999"
               onPress={this.pickImage}>
               {(() => {
-                if (this.state.image) {
-                  return (<Image style={{width: '100%', height: '100%'}} source={{uri: this.state.image}}/>);
+                if (this.state.image && this.state.image != '') {
+                  return (<Image style={{width: '100%', height: '100%'}}  resizeMode={Image.resizeMode.cover} source={{uri: this.state.image}}/>);
                 } else {
                   return (<Image style={{width: '100%', height: '100%'}} source={require('../resources/ic_add_3x.png')}/>);
                 }
@@ -78,7 +89,7 @@ export default class AddMemoPopup extends Component {
             <TextInput
               placeholder='title'
               keyboardType='default'
-              style={{flexGrow: 10, padding: 8, fontSize: 16, height: 64, borderColor: 'gray', borderWidth: 1}}
+              style={{flexGrow: 10, padding: 8, height: 64, borderColor: 'gray', borderWidth: 1, fontSize: 16}}
               multiline={true} numberOfLines={2} editable={true}
               onChangeText={(text) => this.setState({title: text})}
               value={this.state.title} />

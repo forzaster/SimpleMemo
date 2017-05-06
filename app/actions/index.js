@@ -7,6 +7,7 @@ export const ACTION_SHOW_LICENSE = 'SHOW_LICENSE'
 export const ACTION_CRYPTO_DB = 'CRYPTO_DB'
 export const ACTION_ENTER_PIN = 'ENTER_PIN'
 export const ACTION_INIT_DB = 'INIT_DB'
+export const ACTION_DELETE_MEMO = 'DELETE_MEMO'
 
 export const actionShowAddMemo = (d) => ({
   type: ACTION_SHOW_ADD_MEMO,
@@ -37,4 +38,8 @@ export const actionCryptoDB = (d, key, cb) => ({
   data: d,
   key4: key,
   callback: cb
+})
+export const actionDeleteMemo = (id) => ({
+  type: ACTION_DELETE_MEMO,
+  id: id,
 })

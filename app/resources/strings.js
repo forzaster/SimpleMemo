@@ -9,7 +9,8 @@ export let strings = new  LocalizedStrings({
     Crypto: "Protect by PIN",
     CryptoContent: "Crypto Data by key containing PIN",
     EnterPin: "Please enter PIN.",
-    EnterPin2: "Wrong, Please enter PIN, again."
+    EnterPin2: "Wrong, Please enter PIN, again.",
+    Delete: "Delete"
   },
   ja:{
     OK: "OK",
@@ -19,6 +20,7 @@ export let strings = new  LocalizedStrings({
     Crypto: "暗証番号で保護",
     CryptoContent: "データを暗号化して保護",
     EnterPin: "暗証番号を入力してください.",
-    EnterPin2: "暗証番号が違います。もう一度入力してください。"
+    EnterPin2: "暗証番号が違います。もう一度入力してください。",
+    Delete: "削除"
   }
 });
