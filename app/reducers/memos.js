@@ -29,7 +29,7 @@ const memos = (state = {memos: getMemo() ? dataSource.cloneWithRows(getMemo()) :
       })
     case ACTION_UPDATE_MEMO:
       return Object.assign({}, state, {
-        memos: dataSource.cloneWithRows(getMemo())
+        memos: getMemo() ? dataSource.cloneWithRows(getMemo()) : null
       })
     default:
       return state

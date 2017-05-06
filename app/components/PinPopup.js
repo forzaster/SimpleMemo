@@ -8,7 +8,8 @@ export default class PinPopup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pin: []
+      pin: [],
+      message: strings.EnterPin
     };
   }
 
@@ -16,6 +17,7 @@ export default class PinPopup extends Component {
   }
 
   render() {
+    console.log("renderp in")
     const { onOK, onCancel } = this.props
     const buttonStyle = {margin: 10, width: 64, height: 64, borderRadius: 32,
        borderWidth: 1, alignItems: 'center', justifyContent: 'center'}
@@ -29,12 +31,13 @@ export default class PinPopup extends Component {
     }
     return (
       <View style={{padding: 32, flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
-        <View style={{marginTop: 32, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+        <View style={{marginTop: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
           <View style={{width: 16, height: 16, margin: 16, borderRadius: 16, borderWidth: 1, backgroundColor: dummyStr[0]}} />
           <View style={{width: 16, height: 16, margin: 16, borderRadius: 16, borderWidth: 1, backgroundColor: dummyStr[1]}} />
           <View style={{width: 16, height: 16, margin: 16, borderRadius: 16, borderWidth: 1, backgroundColor: dummyStr[2]}} />
           <View style={{width: 16, height: 16, margin: 16, borderRadius: 16, borderWidth: 1, backgroundColor: dummyStr[3]}} />
         </View>
+        <Text style={{alignSelf: 'center'}}>{this.state.message}</Text>
         <View>
           <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
             <TouchableHighlight
@@ -139,6 +142,7 @@ export default class PinPopup extends Component {
           okDisable={this.state.pin.length < 4}
           onOK={()=> {
             onOK(this.state.pin)
+            this.setState({pin: [], message: strings.EnterPin2})
           }}
           onCancel={() => {
             if (this.state.pin.length > 0) {

@@ -97,11 +97,15 @@ getKey = (key4) => {
 }
 
 export const initDb = (key4) => {
-  realm =  settingValue == null ? createRealm('main.realm', null) :
-    createRealm(
-      settingValue.crypto ? 'maincrypto.realm' : 'main.realm',
-      settingValue.crypto ? getKey(key4) : null)
-
+  try {
+    realm =  settingValue == null ? createRealm('main.realm', null) :
+      createRealm(
+        settingValue.crypto ? 'maincrypto.realm' : 'main.realm',
+        settingValue.crypto ? getKey(key4) : null)
+  } catch (e) {
+    console.log("initDb error")
+    return
+  }
   let last_memo = realm.objects(MEMO).sorted('id', true).slice(0, 1)
   memo_id = 0
 

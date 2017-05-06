@@ -52,6 +52,7 @@ class MainScreen extends Component {
     const { dispatch, todos, memos, showAddMemo, memoData, curScreen, prevScreen } = this.props
     console.log("Screen " + prevScreen + " -> " + curScreen)
     if (getCrypto() && !memos) {
+          console.log("renderp in in main")
       return (
         <PinPopup
           onOK={(key4) => {
