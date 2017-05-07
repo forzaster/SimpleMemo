@@ -72,7 +72,7 @@ export default class PinPopup extends Component {
               style={buttonStyle}
               underlayColor="#AAAAAAAA"
               onPress={() => {
-                this.state.pin.push(9)
+                this.state.pin.push(6)
                 this.setState({pin: this.state.pin})
               }}>
               <Text style={{fontSize: 24, alignSelf: 'center'}}>6</Text>
@@ -81,7 +81,7 @@ export default class PinPopup extends Component {
               style={buttonStyle}
               underlayColor="#AAAAAAAA"
               onPress={() => {
-                this.state.pin.push(6)
+                this.state.pin.push(5)
                 this.setState({pin: this.state.pin})
               }}>
               <Text style={{fontSize: 24, alignSelf: 'center'}}>5</Text>
@@ -90,7 +90,7 @@ export default class PinPopup extends Component {
               style={buttonStyle}
               underlayColor="#AAAAAAAA"
               onPress={() => {
-                this.state.pin.push(5)
+                this.state.pin.push(4)
                 this.setState({pin: this.state.pin})
               }}>
               <Text style={{fontSize: 24, alignSelf: 'center'}}>4</Text>
@@ -101,7 +101,7 @@ export default class PinPopup extends Component {
               style={buttonStyle}
               underlayColor="#AAAAAAAA"
               onPress={() => {
-                this.state.pin.push(4)
+                this.state.pin.push(3)
                 this.setState({pin: this.state.pin})
               }}>
               <Text style={{fontSize: 24, alignSelf: 'center'}}>3</Text>
@@ -110,7 +110,7 @@ export default class PinPopup extends Component {
               style={buttonStyle}
               underlayColor="#AAAAAAAA"
               onPress={() => {
-                this.state.pin.push(3)
+                this.state.pin.push(2)
                 this.setState({pin: this.state.pin})
               }}>
               <Text style={{fontSize: 24, alignSelf: 'center'}}>2</Text>
@@ -119,7 +119,7 @@ export default class PinPopup extends Component {
               style={buttonStyle}
               underlayColor="#AAAAAAAA"
               onPress={() => {
-                this.state.pin.push(2)
+                this.state.pin.push(1)
                 this.setState({pin: this.state.pin})
               }}>
               <Text style={{fontSize: 24, alignSelf: 'center'}}>1</Text>
@@ -130,7 +130,7 @@ export default class PinPopup extends Component {
               style={buttonStyle}
               underlayColor="#AAAAAAAA"
               onPress={() => {
-                this.state.pin.push(1)
+                this.state.pin.push(0)
                 this.setState({pin: this.state.pin})
               }}>
               <Text style={{fontSize: 24, alignSelf: 'center'}}>0</Text>

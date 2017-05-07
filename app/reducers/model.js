@@ -1,6 +1,7 @@
 import Realm from 'realm'
 import RNFS from 'react-native-fs'
 
+const DB_FILE = 'main.realm'
 const SETTING = 'Setting'
 const MEMO = 'Memo'
 export const MEMO_IMAGE_FOLDER = 'memo_images'
@@ -28,6 +29,8 @@ if (settings.length > 0) {
 }
 
 getKey = (key4) => {
+  console.log("!!!key=" + key4[0] + ", " + key4[1] + ", " + key4[2] + ", " + key4[3])
+  console.log("!!!keyV=" + key4[0] | (key4[1] << 8) | (key4[2] << 16) | (key4[3] << 24))
   return key4[0] | (key4[1] << 8) | (key4[2] << 16) | (key4[3] << 24)
 }
 
@@ -88,10 +91,8 @@ let memos = null
 
 export const initDb = (key4) => {
   try {
-    realm =  settingValue == null ? createRealm('main.realm', null) :
-      createRealm(
-        settingValue.crypto ? 'maincrypto.realm' : 'main.realm',
-        settingValue.crypto ? key4 : null)
+    realm =  settingValue == null ? createRealm(DB_FILE, null) :
+      createRealm(DB_FILE, settingValue.crypto ? key4 : null)
   } catch (e) {
     return
   }
@@ -132,10 +133,10 @@ export const getMemo = () => {
 }
 
 export const switchMainDB = (crypto, key4, callback) => {
+  /*
   var key = crypto ? key4 : null
-  var dbname = crypto ? 'maincrypto.realm' : 'main.realm'
 
-  let newRealm = createRealm(dbname, key)
+  let newRealm = createRealm(DB_FILE, key)
 
   var data = realm.objects(MEMO)
   var prevProgress = 0.0
@@ -162,7 +163,7 @@ export const switchMainDB = (crypto, key4, callback) => {
   realm = newRealm
 
   memos = realm.objects(MEMO).sorted('date', true)
-
+  */
   if (callback) callback(1.0)
 }
 
