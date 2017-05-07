@@ -29,8 +29,6 @@ if (settings.length > 0) {
 }
 
 getKey = (key4) => {
-  console.log("!!!key=" + key4[0] + ", " + key4[1] + ", " + key4[2] + ", " + key4[3])
-  console.log("!!!keyV=" + key4[0] | (key4[1] << 8) | (key4[2] << 16) | (key4[3] << 24))
   return key4[0] | (key4[1] << 8) | (key4[2] << 16) | (key4[3] << 24)
 }
 
