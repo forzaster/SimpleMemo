@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, TouchableHighlight, Image, View, Text, TextInput, Animated, ScrollView, StyleSheet } from 'react-native'
-import { actionAddMemo, actionCancelAddMemo, actionDeleteMemo } from '../actions'
+import { actionAddMemo, actionCancelAddMemo, actionDeletingMemo } from '../actions'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
 import { AddMemoFAB } from './AddMemoFAB'
@@ -68,7 +68,7 @@ export default class AddMemoPopup extends Component {
             <View style={{width: '33%', flexGrow: 1}}>
               <Button type="submit" title={strings.Delete} disabled={!registered} onPress={() => {
                 if (this.state.id) {
-                  onDelete(actionDeleteMemo(this.state.id))
+                  onDelete(actionDeletingMemo(this.state.id))
                 }
               }} />
             </View>
@@ -108,6 +108,7 @@ export default class AddMemoPopup extends Component {
   }
 
   pickImage() {
+    const { onImageChange } = this.props
     ImagePicker.showImagePicker({storageOptions: {path: MEMO_IMAGE_FOLDER}}, (response) => {
       if (response.didCancel) {
         //console.log('User cancelled image picker');
@@ -119,6 +120,9 @@ export default class AddMemoPopup extends Component {
         //console.log('User tapped custom button: ', response.customButton);
       }
       else {
+        if (onImageChange) {
+          onImageChange(response.uri)
+        }
         this.setState(Object.assign({}, this.state, {
           image: response.uri,
         }))

@@ -67,20 +67,13 @@ createRealm = (path, key) => {
         date: 'date',
         image: 'string'
       }}
-  if (key) {
-    if (getKey(key) != settingValue.key) {
-      return null
-    }
-    return new Realm({
-      path: path,
-      schema: [dbschema]
-    })
-  } else {
-    return new Realm({
-      path: path,
-      schema: [dbschema]
-    })
+  if (key != null && getKey(key) != settingValue.key) {
+    return null
   }
+  return new Realm({
+    path: path,
+    schema: [dbschema]
+  })
 }
 
 let realm = null
