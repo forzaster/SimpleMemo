@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { Button, TouchableHighlight, Image, View, Text, TextInput, Animated, ScrollView, StyleSheet } from 'react-native'
+import { Button, TouchableHighlight, Image, View, TextInput, Animated, StyleSheet } from 'react-native'
 import { actionAddMemo, actionCancelAddMemo, actionDeletingMemo } from '../actions'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
-import { AddMemoFAB } from './AddMemoFAB'
 import OKCancelButtons from './OKCancelButtons'
 import ImagePicker from 'react-native-image-picker'
 import { DOCUMENTS_PATH, MEMO_IMAGE_FOLDER } from '../reducers/model'
@@ -45,7 +44,7 @@ export default class AddMemoPopup extends Component {
   }
 
   render() {
-      const { onAddClick, onCancelClick, onDelete } = this.props
+      const { onAction } = this.props
       const d = new Date()
       let registered = this.state.id ? true : false
       return (
@@ -54,7 +53,7 @@ export default class AddMemoPopup extends Component {
           <OKCancelButtons
             style={{flexGrow:2}}
             onOK={()=> {
-              onAddClick(actionAddMemo({
+              onAction(actionAddMemo({
                 title: this.state.title,
                 content: this.state.content,
                 id: this.state.id,
@@ -63,12 +62,12 @@ export default class AddMemoPopup extends Component {
               }))
             }}
             onCancel={() => {
-              onCancelClick(actionCancelAddMemo())
+              onAction(actionCancelAddMemo())
             }}/>
             <View style={{width: '33%', flexGrow: 1}}>
               <Button type="submit" title={strings.Delete} disabled={!registered} onPress={() => {
                 if (this.state.id) {
-                  onDelete(actionDeletingMemo(this.state.id))
+                  onAction(actionDeletingMemo(this.state.id))
                 }
               }} />
             </View>

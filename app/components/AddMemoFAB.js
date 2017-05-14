@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, TouchableHighlight, Image } from 'react-native'
+import { TouchableHighlight, Image } from 'react-native'
 import { actionShowAddMemo } from '../actions'
 import { styles } from '../styles'
 

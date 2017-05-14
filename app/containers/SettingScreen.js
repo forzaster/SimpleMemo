@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Switch, ListView, TouchableHighlight, WebView, ProgressViewIOS } from 'react-native'
+import { View, Text, Switch, ListView, TouchableHighlight, ProgressViewIOS } from 'react-native'
 import { connect } from 'react-redux'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
@@ -14,7 +14,7 @@ const ITEM_TYPE_SWITCH = 1
 let listItems = [
   {id: 0, type: ITEM_TYPE_SWITCH, title: strings.Crypto, content: strings.CryptoContent, action: ACTION_CRYPTO_DB, data: false, progress: 0.0 },
   {id: 1, type: ITEM_TYPE_NORMAL, title: "License", content: undefined, action: ACTION_SHOW_LICENSE, data: true },
-  {id: 2, type: ITEM_TYPE_NORMAL, title: "App Version", content: "1.0.0", data: undefined}
+  {id: 2, type: ITEM_TYPE_NORMAL, title: "App Version", content: "1.0.4", data: undefined}
 ]
 
 class SettingScreen extends Component {

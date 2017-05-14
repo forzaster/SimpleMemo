@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, ListView, Animated, StyleSheet } from 'react-native';
+import { ListView, Animated } from 'react-native';
 import { actionShowAddMemo, actionDeleteMemo } from '../actions'
 import { styles } from '../styles'
 import ListItem from './ListItem'

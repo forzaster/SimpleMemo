@@ -49,7 +49,7 @@ class MainScreen extends Component {
   }
 
   render() {
-    const { dispatch, todos, memos, memoState, deleteId, memoData, curScreen, prevScreen } = this.props
+    const { dispatch, memos, memoState, deleteId, memoData, curScreen, prevScreen } = this.props
     if (getCrypto() && !memos) {
       return (
         <PinPopup
@@ -64,69 +64,64 @@ class MainScreen extends Component {
     var delId = memoState == "deleting" ? deleteId : null
     return (
       <View style={styles.container}>
-        <View>
-          <MemoList dataSource={memos}
-            deleteId={delId}
-            onItemClick={action => {
-              this.setState({popupImage: null})
-              this.createBgAlphaAnim()
-              dispatch(action)
-            }}
-            onDelete={action => {
-              dispatch(action)
-            }}/>
-        </View>
+        <MemoList dataSource={memos}
+          deleteId={delId}
+          onItemClick={action => {
+            this.setState({popupImage: null})
+            this.createBgAlphaAnim()
+            dispatch(action)
+          }}
+          onDelete={action => {
+            dispatch(action)
+          }}/>
+
         <View style={styles.fabParent} pointerEvents="box-none">
           <AddMemoFAB onAddClick={action => {
             this.createBgAlphaAnim()
             dispatch(action)
           }} />
+
         </View>
-          {(() => {
-            if (memoState == "showAddMemo") {
-                return (
-                    <View style={{position: 'absolute', width: '100%', height: '100%'}}>
+        {(() => {
+          if (memoState == "showAddMemo") {
+              return (
+                  <View style={{position: 'absolute', width: '100%', height: '100%'}}>
+                    <TouchableWithoutFeedback
+                      style={{position: 'absolute',
+                        width: '100%', height: '100%'}}
+                      onPress={Keyboard.dismiss} >
+                      <Animated.View style={{position: 'absolute',
+                        width: '100%', height: '100%', backgroundColor: '#000000', opacity: this.state.bganim}}/>
+                    </TouchableWithoutFeedback>
 
-                      <TouchableWithoutFeedback
-                        style={{position: 'absolute',
-                          width: '100%', height: '100%'}}
-                        onPress={Keyboard.dismiss} >
-                        <Animated.View style={{position: 'absolute',
-                          width: '100%', height: '100%', backgroundColor: '#000000', opacity: this.state.bganim}}/>
-                      </TouchableWithoutFeedback>
-
-                      <View style={styles.addmemoPopupParent} pointerEvents="box-none">
-                        <AddMemoPopup
-                          onAddClick={action => {
-                            dispatch(action)
-                          }}
-                          onCancelClick={action => {
-                            dispatch(action)
-                          }}
-                          onDelete={action => {
-                            dispatch(action)
-                          }}
-                          onImageChange={uri => {
-                            this.setState({popupImage: uri})
-                          }}
-                          memoData={memoData}/>
-                      </View>
-                      {(() => {
-                        if (this.state.popupImage || (memoData && memoData.image)) {
-                          let anim = new Animated.Value(0.0)
-                          Animated.timing(anim, {toValue: 1.0, duration: 400}).start()
-                          let image = this.state.popupImage ? this.state.popupImage : DOCUMENTS_PATH + memoData.image
-                          return (
-                            <Animated.View style={{width: '100%', height: '50%', marginTop: 16, marginBottom: 16, opacity: anim}}>
-                              <Image style={{width: '100%', height: '100%'}}  resizeMode={Image.resizeMode.contain} source={{uri: image}}/>
-                            </Animated.View>
-                          )
-                        }
-                      })()}
+                    <View style={styles.addmemoPopupParent} pointerEvents="box-none">
+                      <AddMemoPopup
+                        onAction={action => {
+                          dispatch(action)
+                        }}
+                        onImageChange={uri => {
+                          this.setState({popupImage: uri})
+                        }}
+                        memoData={memoData}/>
                     </View>
-                );
-            }
-          })()}
+
+                    {(() => {
+                      if (this.state.popupImage || (memoData && memoData.image)) {
+                        let anim = new Animated.Value(0.0)
+                        Animated.timing(anim, {toValue: 1.0, duration: 400}).start()
+                        let image = this.state.popupImage ? this.state.popupImage : DOCUMENTS_PATH + memoData.image
+                        return (
+                          <Animated.View style={{width: '100%', height: '50%', marginTop: 16, marginBottom: 16, opacity: anim}}>
+                            <Image style={{width: '100%', height: '100%'}}  resizeMode={Image.resizeMode.contain} source={{uri: image}}/>
+                          </Animated.View>
+                        )
+                      }
+                    })()}
+
+                  </View>
+              );
+          }
+        })()}
       </View>
     );
   }
@@ -134,7 +129,6 @@ class MainScreen extends Component {
 
 function mapStateToProps(state) {
   return {
-    todos: state.todos,
     memos: state.memos.memos,
     memoState: state.memos.memoState,
     deleteId: state.memos.deleteId,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Image, ListView, Animated, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, Image, ListView, Animated, TouchableHighlight, StyleSheet } from 'react-native';
 import { styles } from '../styles'
 import { DOCUMENTS_PATH } from '../reducers/model'
 

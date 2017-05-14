@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, View, Animated, StyleSheet, WebView } from 'react-native'
+import { Button, View, WebView } from 'react-native'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
 

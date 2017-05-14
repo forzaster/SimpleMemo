@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, TouchableHighlight, View, Animated, StyleSheet, Text } from 'react-native'
+import { TouchableHighlight, View, Text, StyleSheet } from 'react-native'
 import { styles } from '../styles'
 import { strings } from '../resources/strings'
 import OKCancelButtons from '../components/OKCancelButtons'
@@ -20,28 +20,29 @@ export default class PinPopup extends Component {
     const { onOK, onCancel } = this.props
     const buttonStyle = {margin: 10, width: 64, height: 64, borderRadius: 32,
        borderWidth: 1, alignItems: 'center', justifyContent: 'center'}
-    let dummyStr = []
+    const numBtnColor = '#AAAAAAAA'
+    let indicatorColor = []
     for (var i = 0; i < 4; i++) {
       if (i < this.state.pin.length) {
-        dummyStr.push('#000000')
+        indicatorColor.push('#000000')
       } else {
-        dummyStr.push('#FFFFFF')
+        indicatorColor.push('#FFFFFF')
       }
     }
     return (
       <View style={{padding: 32, flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
         <View style={{marginTop: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-          <View style={{width: 16, height: 16, margin: 16, borderRadius: 16, borderWidth: 1, backgroundColor: dummyStr[0]}} />
-          <View style={{width: 16, height: 16, margin: 16, borderRadius: 16, borderWidth: 1, backgroundColor: dummyStr[1]}} />
-          <View style={{width: 16, height: 16, margin: 16, borderRadius: 16, borderWidth: 1, backgroundColor: dummyStr[2]}} />
-          <View style={{width: 16, height: 16, margin: 16, borderRadius: 16, borderWidth: 1, backgroundColor: dummyStr[3]}} />
+          <View style={{width: 16, height: 16, margin: 16, borderRadius: 16, borderWidth: 1, backgroundColor: indicatorColor[0]}} />
+          <View style={{width: 16, height: 16, margin: 16, borderRadius: 16, borderWidth: 1, backgroundColor: indicatorColor[1]}} />
+          <View style={{width: 16, height: 16, margin: 16, borderRadius: 16, borderWidth: 1, backgroundColor: indicatorColor[2]}} />
+          <View style={{width: 16, height: 16, margin: 16, borderRadius: 16, borderWidth: 1, backgroundColor: indicatorColor[3]}} />
         </View>
         <Text style={{alignSelf: 'center'}}>{this.state.message}</Text>
         <View>
           <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
             <TouchableHighlight
               style={buttonStyle}
-              underlayColor="#AAAAAAAA"
+              underlayColor={numBtnColor}
               onPress={() => {
                 this.state.pin.push(9)
                 this.setState({pin: this.state.pin})
@@ -50,7 +51,7 @@ export default class PinPopup extends Component {
             </TouchableHighlight>
             <TouchableHighlight
               style={buttonStyle}
-              underlayColor="#AAAAAAAA"
+              underlayColor={numBtnColor}
               onPress={() => {
                 this.state.pin.push(8)
                 this.setState({pin: this.state.pin})
@@ -59,7 +60,7 @@ export default class PinPopup extends Component {
             </TouchableHighlight>
             <TouchableHighlight
               style={buttonStyle}
-              underlayColor="#AAAAAAAA"
+              underlayColor={numBtnColor}
               onPress={() => {
                 this.state.pin.push(7)
                 this.setState({pin: this.state.pin})
@@ -70,7 +71,7 @@ export default class PinPopup extends Component {
           <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
             <TouchableHighlight
               style={buttonStyle}
-              underlayColor="#AAAAAAAA"
+              underlayColor={numBtnColor}
               onPress={() => {
                 this.state.pin.push(6)
                 this.setState({pin: this.state.pin})
@@ -79,7 +80,7 @@ export default class PinPopup extends Component {
             </TouchableHighlight>
             <TouchableHighlight
               style={buttonStyle}
-              underlayColor="#AAAAAAAA"
+              underlayColor={numBtnColor}
               onPress={() => {
                 this.state.pin.push(5)
                 this.setState({pin: this.state.pin})
@@ -88,7 +89,7 @@ export default class PinPopup extends Component {
             </TouchableHighlight>
             <TouchableHighlight
               style={buttonStyle}
-              underlayColor="#AAAAAAAA"
+              underlayColor={numBtnColor}
               onPress={() => {
                 this.state.pin.push(4)
                 this.setState({pin: this.state.pin})
@@ -99,7 +100,7 @@ export default class PinPopup extends Component {
           <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
             <TouchableHighlight
               style={buttonStyle}
-              underlayColor="#AAAAAAAA"
+              underlayColor={numBtnColor}
               onPress={() => {
                 this.state.pin.push(3)
                 this.setState({pin: this.state.pin})
@@ -108,7 +109,7 @@ export default class PinPopup extends Component {
             </TouchableHighlight>
             <TouchableHighlight
               style={buttonStyle}
-              underlayColor="#AAAAAAAA"
+              underlayColor={numBtnColor}
               onPress={() => {
                 this.state.pin.push(2)
                 this.setState({pin: this.state.pin})
@@ -117,7 +118,7 @@ export default class PinPopup extends Component {
             </TouchableHighlight>
             <TouchableHighlight
               style={buttonStyle}
-              underlayColor="#AAAAAAAA"
+              underlayColor={numBtnColor}
               onPress={() => {
                 this.state.pin.push(1)
                 this.setState({pin: this.state.pin})
@@ -128,7 +129,7 @@ export default class PinPopup extends Component {
           <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
             <TouchableHighlight
               style={buttonStyle}
-              underlayColor="#AAAAAAAA"
+              underlayColor={numBtnColor}
               onPress={() => {
                 this.state.pin.push(0)
                 this.setState({pin: this.state.pin})

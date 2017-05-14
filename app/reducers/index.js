@@ -3,10 +3,10 @@ import screen from './screen'
 import memos from './memos'
 import settings from './settings'
 
-const todoApp = combineReducers({
+const memoApp = combineReducers({
   screen,
   memos,
   settings,
 })
 
-export default todoApp
+export default memoApp
